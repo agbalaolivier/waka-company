@@ -9,47 +9,87 @@
 <body>
     <header class="main-header">
         <div class="logo">
-            <h1>Waka'Company</h1>
+            <div class="logo-container">
+                <span class="logo-icon">W</span>
+                <h1>Waka'<span class="company-text">Company</span></h1>
+            </div>
         </div>
         <nav class="main-nav">
             <ul>
                 <li><a href="#accueil">Accueil</a></li>
                 <li><a href="#services">Services</a></li>
-                <li><a href="#apropos">À propos</a></li>
-                <li><a href="#contact">Contact</a></li>
+                <li><a href="#apropos">À propos de nous</a></li>
+                <li><a href="#contact">Contactez-nous</a></li>
             </ul>
         </nav>
     </header>
 
     <main>
-        <section id="accueil" class="hero">
+        <section id="accueil" class="hero section-content">
             <h2>Bienvenue chez Waka'Company</h2>
-            <p>Votre partenaire de confiance pour [votre activité principale]</p>
+            <p>Votre partenaire de confiance pour <span class="highlight-text">[La création et le Développement de votre site web]</span></p>
+            <div class="hero-buttons">
+                <button class="cta-button">Découvrir nos services</button>
+                <button class="cta-button secondary">Nous contacter</button>
+            </div>
         </section>
 
-        <section id="services" class="services">
+        <section id="services" class="services section-content">
             <h2>Nos Services</h2>
             <div class="services-grid">
                 <article class="service-card">
-                    <h3>Service 1</h3>
-                    <p>Description du service 1</p>
+                    <h3>Création de Sites Web</h3>
+                    <p>Sites vitrines, e-commerce, applications web sur mesure adaptés à vos besoins.</p>
+                    <button class="service-details-btn" data-service="web">En savoir plus</button>
                 </article>
                 <article class="service-card">
-                    <h3>Service 2</h3>
-                    <p>Description du service 2</p>
+                    <h3>Design UX/UI</h3>
+                    <p>Interfaces modernes et intuitives pour une expérience utilisateur optimale.</p>
+                    <button class="service-details-btn" data-service="design">En savoir plus</button>
                 </article>
                 <article class="service-card">
-                    <h3>Service 3</h3>
-                    <p>Description du service 3</p>
+                    <h3>Référencement SEO</h3>
+                    <p>Optimisation pour les moteurs de recherche et visibilité en ligne.</p>
+                    <button class="service-details-btn" data-service="seo">En savoir plus</button>
                 </article>
             </div>
+        </section>
+
+        <section id="apropos" class="about section-content">
+            <h2>À Propos de Nous</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>Experts en développement web depuis plus de 5 ans, nous créons des solutions digitales innovantes.</p>
+                    <ul class="about-list">
+                        <li>✓ Expertise technique</li>
+                        <li>✓ Accompagnement personnalisé</li>
+                        <li>✓ Solutions sur mesure</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="contact section-content">
+            <h2>Contactez-nous</h2>
+            <form id="contact-form" class="contact-form">
+                <div class="form-group">
+                    <input type="text" id="name" name="name" required placeholder="Votre nom">
+                </div>
+                <div class="form-group">
+                    <input type="email" id="email" name="email" required placeholder="Votre email">
+                </div>
+                <div class="form-group">
+                    <textarea id="message" name="message" required placeholder="Votre message"></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Envoyer</button>
+            </form>
         </section>
     </main>
 
     <footer class="main-footer">
         <p>&copy; 2024 Waka'Company. Tous droits réservés.</p>
     </footer>
-    
+
     <script src="script.js"></script>
 </body>
 </html>

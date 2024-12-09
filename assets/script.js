@@ -1,84 +1,52 @@
-// Attendre que le DOM soit complètement chargé
 document.addEventListener('DOMContentLoaded', () => {
-    // Animation du scroll smooth pour les liens de navigation
+    // Sélection des éléments
+    const sections = document.querySelectorAll('.section-content');
     const navLinks = document.querySelectorAll('.main-nav a');
-    
+
+    // Fonction pour afficher une section
+    function showSection(sectionId) {
+        console.log('Showing section:', sectionId); // Debug
+        sections.forEach(section => {
+            if (section.id === sectionId) {
+                section.style.display = 'block';
+                section.classList.add('active');
+                section.style.opacity = 0;
+                setTimeout(() => {
+                    section.style.opacity = 1;
+                }, 10);
+                console.log('Section activated:', section.id); // Debug
+            } else {
+                section.style.display = 'none';
+                section.classList.remove('active');
+            }
+        });
+    }
+
+    // Initialisation : afficher l'accueil et cacher les autres sections
+    sections.forEach(section => {
+        if (section.id === 'accueil') {
+            section.style.display = 'block';
+            section.classList.add('active');
+        } else {
+            section.style.display = 'none';
+            section.classList.remove('active');
+        }
+    });
+
+    // Gestion de la navigation
     navLinks.forEach(link => {
         link.addEventListener('click', (e) => {
             e.preventDefault();
-            const targetId = link.getAttribute('href');
-            const targetSection = document.querySelector(targetId);
-            
-            targetSection.scrollIntoView({
-                behavior: 'smooth'
-            });
+            const targetId = link.getAttribute('href').substring(1);
+            console.log('Clicked link for:', targetId); // Debug
+            showSection(targetId);
+            history.pushState(null, '', `#${targetId}`);
         });
     });
+    // Gérer le bouton retour du navigateur
+window.addEventListener('popstate', () => {
+    const hash = window.location.hash.substring(1) || 'accueil';
+    showSection(hash);
 
-    // Animation d'apparition des cartes de services au scroll
-    const observerOptions = {
-        threshold: 0.2
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-            }
-        });
-    }, observerOptions);
-
-    const serviceCards = document.querySelectorAll('.service-card');
-    serviceCards.forEach(card => {
-        observer.observe(card);
-        card.classList.add('fade-in');
-    });
-
-    // Ajout d'une classe active au menu lors du scroll
-    const sections = document.querySelectorAll('section');
     
-    window.addEventListener('scroll', () => {
-        let current = '';
-        
-        sections.forEach(section => {
-            const sectionTop = section.offsetTop;
-            const sectionHeight = section.clientHeight;
-            
-            if (pageYOffset >= sectionTop - 60) {
-                current = section.getAttribute('id');
-            }
-        });
-
-        navLinks.forEach(link => {
-            link.classList.remove('active');
-            if (link.getAttribute('href').substring(1) === current) {
-                link.classList.add('active');
-            }
-        });
-    });
-});
-
-// Animation du header au scroll
-let lastScroll = 0;
-const header = document.querySelector('.main-header');
-
-window.addEventListener('scroll', () => {
-    const currentScroll = window.pageYOffset;
-    
-    if (currentScroll <= 0) {
-        header.classList.remove('scroll-up');
-        return;
-    }
-    
-    if (currentScroll > lastScroll && !header.classList.contains('scroll-down')) {
-        // Scroll vers le bas
-        header.classList.remove('scroll-up');
-        header.classList.add('scroll-down');
-    } else if (currentScroll < lastScroll && header.classList.contains('scroll-down')) {
-        // Scroll vers le haut
-        header.classList.remove('scroll-down');
-        header.classList.add('scroll-up');
-    }
-    
-    lastScroll = currentScroll;
 });
