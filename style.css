@@ -13,7 +13,8 @@ body {
 
 /* Header et Navigation */
 .main-header {
-    background-color: #333;
+    background-color: rgba(0,0,0,0.6);
+
     color: white;
     padding: 1rem;
     position: sticky;
@@ -33,16 +34,16 @@ body {
 }
 
 .logo-icon {
-    background: #ffd700;
-    color: #333;
-    width: 40px;
-    height: 40px;
+    background: #007BFF;
+    color: white;
+    width: 70px;
+    height: 70px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     font-weight: bold;
-    font-size: 1.5rem;
+    font-size: 3.5rem;
     box-shadow: 0 2px 10px rgba(255, 215, 0, 0.3);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
@@ -58,10 +59,93 @@ body {
     display: flex;
     align-items: center;
 }
+.director-photo{
+    display: flex; 
+    flex-direction: column; 
+    position: relative;
+    bottom: 8em;
+
+}
+.director-photo img{
+    width: 80px;
+    display: block; 
+    width: 100px; 
+    border-radius: 10%;
+    object-fit: cover;
+    
+    
+
+    
+    
+    
+}
+
+.director-title {
+    
+    font-size: 20px; 
+    margin-top: 5px; 
+}
 
 .company-text {
-    color: #ffd700;
+    color: #007BFF;
     margin-left: 2px;
+}
+h2 {
+    font-size: 2.5rem; /* Augmente la taille du titre */
+    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2); /* Ombre portée pour le titre */
+    margin-bottom: 1.5rem; /* Espace en dessous du titre */
+}
+/* Animation pour les titres */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px); /* Déplacement vers le haut */
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0); /* Position finale */
+    }
+}
+/* Animation de frappe */
+@keyframes typing {
+    from { width: 0; }
+    to { width: 100%; }
+}
+/* Animation de clignotement du curseur */
+@keyframes blink-caret {
+    from, to { border-color: transparent; }
+    50% { border-color: #800020; }
+}
+
+/* Styles pour les titres */
+h2 {
+    font-size: 2.5rem; /* Augmente la taille du titre */
+    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2); /* Ombre portée pour le titre */
+    margin-bottom: 1.5rem; /* Espace en dessous du titre */
+    animation: fadeIn 0.8s ease-in-out; /* Applique l'animation */
+    opacity: 0; /* Commence invisible */
+}
+
+/* Ajoutez une classe pour activer l'animation */
+.section-content.active h2 {
+    opacity: 1; /* Rendre visible */
+    font-size: 2.5rem; /* Augmente la taille du titre */
+    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2); /* Ombre portée pour le titre */
+    margin-bottom: 1.5rem; /* Espace en dessous du titre */
+    overflow: hidden; /* Cache le texte qui déborde */
+    white-space: nowrap; /* Empêche le retour à la ligne */
+    animation: t
+}
+
+/* Styles pour les paragraphes */
+p {
+    font-size: 1.2rem; /* Augmente la taille de la police */
+    color: #333; /* Couleur du texte */
+    line-height: 1.8; /* Hauteur de ligne pour une meilleure lisibilité */
+    margin-bottom: 1.5rem; /* Espace en dessous des paragraphes */
+    padding: 0.5rem; /* Espacement interne pour le paragraphe */
+    background-color: rgba(255, 255, 255, 0.8); /* Fond légèrement transparent */
+    border-radius: 5px; /* Coins arrondis */
 }
 
 /* Navigation */
@@ -91,17 +175,42 @@ main {
 }
 
 /* Sections générales */
-section-content {
+.hero section-content {
     display: none;
     padding: 4rem 2rem;
     animation: fadeIn 0.5s ease-in-out;
     opacity: 0;
     transition:opacity 0.3s ease-in-ou ;
+
+    position: relative; /* Pour positionner les éléments enfants */
+    margin: 20px; /* Marge autour des sections */
+    padding: 20px; /* Espacement interne */
+    border: 1px solid #ddd; /* Bordure légère */
+    border-radius: 10px; /* Coins arrondis */
+    background-color: #f9f9f9; /* Couleur de fond par défaut */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Ombre légère */
+}
+.hero section-content > * {
+    position: relative; /* Pour que le contenu soit au-dessus du quadrillage */
+    z-index: 1; /* Au-dessus du quadrillage */
 }
 
- section-content.active {
+
+ .section-content.active {
     display: block;
     opacity: 1;
+}
+.hero section-content::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.1) 25%, transparent 25%, transparent 75%, rgba(255, 255, 255, 0.1) 75%, rgba(255, 255, 255, 0.1));
+    background-size: 20px 20px; /* Taille du quadrillage */
+    z-index: 0; /* Derrière le contenu */
+    border-radius: 10px; /* Coins arrondis pour le quadrillage */
 }
 
 /* Hero Section */
@@ -135,7 +244,8 @@ section-content {
 /* Services Section */
 .services section-content {
     padding: 4rem 2rem;
-    background-color: #fff;
+    
+    
 }
 
 .services h2 {
@@ -154,8 +264,11 @@ section-content {
     background: white;
     padding: 2rem;
     border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    box-shadow:2px 4px 10px rgba(0, 0, 0, 0.7); ;
     transition: transform 0.3s;
+    background-color: skyblue;
+    border-radius: 20px;
+    
 }
 
 .service-card:hover {
@@ -165,6 +278,25 @@ section-content {
 .service-card h3 {
     color: #333;
     margin-bottom: 1rem;
+}
+.exemples{
+    display: flex;
+
+   
+}
+.examples-grid{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.example-card{
+   flex: 0 1 200px; 
+   margin: 1rem;
+}
+.example-card img{
+    width: 100%;
+    height: 150px; 
+    object-fit: cover; 
 }
 /* Styles pour la section À propos */
 .about.section-content {
@@ -295,26 +427,28 @@ section-content {
 /* Modal */
 .modal {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
+    top: 30%;
+    left: 50%;
+    width: 90%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.7);
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     z-index: 1000;
     opacity: 0;
     transition: opacity 0.3s ease-in-out;
 }
 .modal.active {
     opacity: 1;
+    bottom: 0 ;
 }
 
 .modal-content {
     background-color: white;
     padding: 2rem;
     border-radius: 8px;
+    width: 90%;
     max-width: 500px;
     position: relative;
     transform: translateY(20px);
@@ -359,6 +493,37 @@ section-content {
     text-align: center;
     padding: 2rem;
     margin-top: 2rem;
+}
+/* Amélioration des boutons */
+.cta-button {
+    background-color: #007BFF; /* Couleur de fond */
+    color: white; /* Couleur du texte */
+    border: none; /* Pas de bordure */
+    padding: 10px 20px; /* Espacement interne */
+    border-radius: 5px; /* Coins arrondis */
+    cursor: pointer; /* Curseur pointer */
+    transition: background-color 0.3s; /* Transition pour l'effet de survol */
+}
+
+.cta-button:hover {
+    background-color: #0056b3; /* Couleur de fond au survol */
+}
+
+/* Amélioration de la typographie */
+h1, h2, h3, h4 {
+    font-family: 'Arial', sans-serif; /* Police moderne */
+}
+
+p {
+    line-height: 1.6; /* Hauteur de ligne pour une meilleure lisibilité */
+}
+
+/* Espacement et marges */
+.section-content {
+    margin: 20px; /* Marge autour des sections */
+    padding: 20px; /* Espacement interne */
+    border: 1px solid #ddd; /* Bordure légère */
+    border-radius: 10px; /* Coins arrondis */
 }
 
 /* Animations */
