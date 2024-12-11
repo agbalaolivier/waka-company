@@ -35,10 +35,7 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         });
     });
+    // Remplacez par votre clé d'API
 
-    // Gestion de l'envoi du formulaire de newsletter
-    document.getElementById('newsletter-form').addEventListener('submit', function(e) {
-        e.preventDefault();
-        alert('Merci de vous être inscrit à notre newsletter !');
-    });
+
 });
