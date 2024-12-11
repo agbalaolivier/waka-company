@@ -273,6 +273,12 @@ main {
     margin-top: 1rem;
     text-shadow: 1px 1px 2px rgba(128, 0, 32, 0.1);
 }
+.hero-buttons{
+    display: flex; /* Utiliser Flexbox */
+    flex-direction: column; /* Aligner les boutons en colonne */
+    gap: 10px; /* Espacement entre les boutons */
+}
+   
 
 /* Services Section */
 .services section-content {
@@ -604,6 +610,12 @@ p {
     .hero h2 {
         font-size: 2rem;
     }
+    .hero.section-content h2{
+        display: none;
+    }
+    .hero-buttons {
+        flex-direction: row; /* Aligner les boutons en ligne sur les écrans plus larges */
+    }
 
     .back-button {
         position: fixed;
@@ -611,6 +623,9 @@ p {
         right: 20px;
         z-index: 1000;
         box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+    .contact.section-content h2{
+        display: none;
     }
     
 
