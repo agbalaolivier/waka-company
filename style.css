@@ -175,7 +175,7 @@ main {
 }
 
 /* Sections générales */
-.hero section-content {
+.hero.section-content {
     display: none;
     padding: 4rem 2rem;
     animation: fadeIn 0.5s ease-in-out;
@@ -190,7 +190,7 @@ main {
     background-color: #f9f9f9; /* Couleur de fond par défaut */
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Ombre légère */
 }
-.hero section-content > * {
+.hero.section-content > * {
     position: relative; /* Pour que le contenu soit au-dessus du quadrillage */
     z-index: 1; /* Au-dessus du quadrillage */
 }
@@ -555,4 +555,7 @@ p {
         right: 20px;
         z-index: 1000;
         box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+    
+
     }
