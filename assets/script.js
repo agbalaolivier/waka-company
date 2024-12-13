@@ -35,7 +35,47 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         });
     });
-    // Remplacez par votre clé d'API
+    document.getElementById('contact-form').addEventListener('submit', function(event) {
+        event.preventDefault(); // Empêche le rechargement de la page
+    
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+        const message = document.getElementById('message').value;
+    
+        // Créez un objet avec les données du formulaire
+        const data = {
+            name: name,
+            email: email,
+            message: message
+        };
+    
+        // Envoyer les données à votre serveur
+        fetch('http://localhost:3000/api/contact', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => {
+            if (response.ok) {
+                alert('Message envoyé avec succès !');
+                // Réinitialiser le formulaire
+                document.getElementById('contact-form').reset();
+            } else {
+                alert('Erreur lors de l\'envoi du message.');
+            }
+        })
+        .catch(error => {
+            console.error('Erreur:', error);
+            alert('Erreur lors de l\'envoi du message.');
+        });
+    });
+    const cors = require('cors');
+
+app.use(cors({
+    origin: 'http://127.0.0.1:5500' // Remplacez par l'origine de votre frontend
+}));
 
 
 });
