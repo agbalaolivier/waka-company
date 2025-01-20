@@ -42,11 +42,12 @@ body {
     margin-top: 10px; /* Espace entre le loader et le texte */
     font-size: 1.2rem; /* Taille du texte */
     color: #333; /* Couleur du texte */
+    
 }
 
 /* Header et Navigation */
 .main-header {
-    background-color: rgba(0,0,0,0.6);
+    background-color: rgba(0,0,0,0.4);
 
     color: white;
     padding: 1rem;
@@ -64,27 +65,19 @@ body {
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    width: 5em;
 }
-
-.logo-icon {
-    background: #007BFF;
-    color: white;
+.logo-container img{
     width: 70px;
     height: 70px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: bold;
-    font-size: 3.5rem;
-    box-shadow: 0 2px 10px rgba(255, 215, 0, 0.3);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 20%;
+    
+    
+    
 }
 
-.logo:hover .logo-icon {
-    transform: rotate(360deg) scale(1.1);
-    box-shadow: 0 2px 15px rgba(255, 215, 0, 0.5);
-}
+
+
 
 .logo h1 {
     font-size: 1.8rem;
