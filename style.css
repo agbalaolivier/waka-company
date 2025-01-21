@@ -67,14 +67,22 @@ body {
     gap: 0.5rem;
     width: 5em;
 }
-.logo-container img{
-    width: 70px;
-    height: 70px;
+.logo-img{
+    width: 150px;
+    height: auto;
     border-radius: 20%;
-    
-    
-    
+    transition: transform 0.5s ease;    
 }
+
+.logo-img.active {
+    position: fixed; /* Position fixe pour couvrir la page */
+    top: 50%; /* Centrer verticalement */
+    left: 50%; /* Centrer horizontalement */
+    transform: translate(-50%, -50%) scale(3); /* Agrandir et centrer */
+    z-index: 1000; /* Au-dessus des autres éléments */
+    cursor: pointer; /* Curseur pointer */
+
+    }
 
 
 
@@ -301,6 +309,32 @@ main {
     background-color: skyblue;
     border-radius: 20px;
     
+}
+.flys-container {
+    display: flex; /* Utilise flexbox pour le positionnement */
+    justify-content: center; /* Centre le contenu horizontalement */
+    align-items: center; /* Centre le contenu verticalement */
+    margin: 20px 0; /* Ajoute un espace autour de la section */
+}
+.flys{
+    background-color: #f9f9f9; /* Couleur de fond */
+    border: 1px solid #ddd; /* Bordure légère */
+    border-radius: 8px; /* Coins arrondis */
+    padding: 20px; /* Espacement interne */
+    text-align: center; /* Centre le texte */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Ombre légère */
+    max-width: 300px; /* Largeur maximale */
+    transition: transform 0.3s; /* Animation pour l'effet de survol */
+}
+
+.flys img {
+    max-width: 100%; /* Assure que l'image ne dépasse pas la largeur de l'article */
+    height: auto; /* Garde les proportions de l'image */
+    border-radius: 8px; /* Coins arrondis pour l'image */
+}
+
+.flys:hover {
+    transform: scale(1.05); /* Agrandit légèrement l'article au survol */
 }
 
 .service-card:hover {

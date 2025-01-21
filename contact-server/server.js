@@ -5,9 +5,15 @@ const nodemailer = require('nodemailer');
 const validator = require('validator');
 const helmet = require('helmet'); // Pour renforcer la sécurité des en-têtes HTTP
 const xss = require('xss'); // Pour filtrer les entrées utilisateur et prévenir les attaques XSS
+const cors = require('cors'); // Ajout de l'importation du module cors
+// ... existing code ...
 
 const app = express();
 const port = process.env.PORT || 3000;
+// Configuration de CORS
+app.use(cors({
+    origin: 'http://127.0.0.1:5500' // Remplacez par l'origine de votre frontend
+}));
 
 // Middleware pour renforcer la sécurité
 app.use(helmet());
@@ -18,9 +24,11 @@ app.post('/api/contact', (req, res) => {
 
     // Validation et filtrage des données
     if (!validator.isEmail(email)) {
+        console.error('Email invalide:', email); // Ajout d'un log
         return res.status(400).send('Adresse email invalide');
     }
     if (!name || !email || !message) {
+        console.error('Champs manquants:', { name, email, message }); // Ajout d'un log
         return res.status(400).send('Tous les champs sont requis.');
     }
 
@@ -51,6 +59,11 @@ app.post('/api/contact', (req, res) => {
         }
         res.status(200).send('Message envoyé avec succès !');
     });
+});
+// Middleware pour gérer les erreurs
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).send('Quelque chose a mal tourné !');
 });
 
 app.listen(port, () => {

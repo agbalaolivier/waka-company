@@ -1,6 +1,10 @@
+
 document.addEventListener("DOMContentLoaded", function() {
     const navLinks = document.querySelectorAll('.main-nav a');
     const loadingScreen = document.getElementById('loading');
+    const logoImg = document.querySelector('.logo-img'); // Déplacez cette ligne ici
+    
+    
 
     // Gestion des clics sur les liens de navigation
     navLinks.forEach(link => {
@@ -35,6 +39,12 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         });
     });
+
+    // Écouteur d'événements pour le logo
+    logoImg.addEventListener('click', function() {
+        logoImg.classList.toggle('active'); // Ajoute ou retire la classe active
+    });
+
     document.getElementById('contact-form').addEventListener('submit', function(event) {
         event.preventDefault(); // Empêche le rechargement de la page
     
@@ -71,11 +81,10 @@ document.addEventListener("DOMContentLoaded", function() {
             alert('Erreur lors de l\'envoi du message.');
         });
     });
+
+    // CORS configuration
     const cors = require('cors');
-
-app.use(cors({
-    origin: 'http://127.0.0.1:5500' // Remplacez par l'origine de votre frontend
-}));
-
-
+    app.use(cors({
+        origin: 'http://127.0.0.1:5500' // Remplacez par l'origine de votre frontend
+    }));
 });
