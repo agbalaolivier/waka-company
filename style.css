@@ -315,26 +315,51 @@ main {
     justify-content: center; /* Centre le contenu horizontalement */
     align-items: center; /* Centre le contenu verticalement */
     margin: 20px 0; /* Ajoute un espace autour de la section */
+    display: none;
+    background-color: #f4f4f4; /* Couleur de fond */
+    
 }
 .flys{
-    background-color: #f9f9f9; /* Couleur de fond */
-    border: 1px solid #ddd; /* Bordure légère */
     border-radius: 8px; /* Coins arrondis */
     padding: 20px; /* Espacement interne */
     text-align: center; /* Centre le texte */
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Ombre légère */
+
     max-width: 300px; /* Largeur maximale */
     transition: transform 0.3s; /* Animation pour l'effet de survol */
+    display: block;
+
+    
+   
+}
+.flys-images {
+    display: flex; /* Utiliser flex pour les images */
+    justify-content: space-between; /* Espace entre les images */
+    margin-top: 10px; /* Espace au-dessus des images */
+    gap: 50px; /* Espace entre les images */
 }
 
+
+
 .flys img {
-    max-width: 100%; /* Assure que l'image ne dépasse pas la largeur de l'article */
-    height: auto; /* Garde les proportions de l'image */
+    max-width: 200px;
+    height: 200px; /* Taille des images */
     border-radius: 8px; /* Coins arrondis pour l'image */
+    object-fit: cover; /* Assure que l'image remplit le conteneur sans déformation */
+    margin-right: 10px; /* Espace entre les images */
+    transition: transform 0.2s; /* Animation pour l'effet de survol */
+    cursor: pointer; /* Curseur pointer */
 }
+
+.flys img:last-child {
+    margin-right: 0; /* Pas d'espace après la dernière image */
+}
+
 
 .flys:hover {
     transform: scale(1.05); /* Agrandit légèrement l'article au survol */
+}
+#toggle-flys{
+    cursor: pointer; /* Curseur pointer */
 }
 
 

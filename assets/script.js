@@ -19,6 +19,7 @@ document.addEventListener("DOMContentLoaded", function() {
             document.querySelectorAll('.section-content').forEach(section => {
                 section.classList.remove('active');
             });
+           
 
             // Afficher la section cible
             const targetSection = document.querySelector(targetId);
@@ -81,10 +82,16 @@ document.addEventListener("DOMContentLoaded", function() {
             alert('Erreur lors de l\'envoi du message.');
         });
     });
+    // Ajout d'un événement de clic sur le titre
+    document.getElementById('toggle-flys').addEventListener('click', function() {
+        const flysContainer = document.querySelector('.flys-container');
+        flysContainer.style.display = flysContainer.style.display === 'none' ? 'block' : 'none'; // Alterner l'affichage
+    });
 
     // CORS configuration
     const cors = require('cors');
     app.use(cors({
         origin: 'http://127.0.0.1:5500' // Remplacez par l'origine de votre frontend
     }));
+    
 });
