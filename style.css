@@ -341,13 +341,15 @@ main {
 
 
 .flys img {
-    max-width: 200px;
-    height: 200px; /* Taille des images */
+    max-width: 100%; /* Taille maximale des images */
+    height: auto; /* Taille des images */
     border-radius: 8px; /* Coins arrondis pour l'image */
     object-fit: cover; /* Assure que l'image remplit le conteneur sans déformation */
     margin-right: 10px; /* Espace entre les images */
     transition: transform 0.2s; /* Animation pour l'effet de survol */
     cursor: pointer; /* Curseur pointer */
+    margin-bottom: 10px;
+    max-width: 150px;
 }
 
 .flys img:last-child {
@@ -682,4 +684,15 @@ p {
     }
     
 
+    }
+    @media (max-width: 600px) {
+        .flys img {
+            max-width: 100px; /* Ajuster la taille des images sur les petits écrans */
+        }
+    }
+    
+    @media (max-width: 400px) {
+        .flys img {
+            max-width: 80px; /* Ajuster encore plus pour les très petits écrans */
+        }
     }
