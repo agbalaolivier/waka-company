@@ -588,13 +588,18 @@ main {
     text-align: center;
     margin-top: 2em;
     border-radius: 10px;
+    
 }
 
 .newsletter input {
     padding: 1rem;
     margin-right: 0.5rem;
     border-radius: 10px;
+    width: 100%; /* Utiliser 100% pour que le champ prenne toute la largeur disponible */
+    max-width: 300px; /* Largeur maximale pour le champ de saisie */
+    box-sizing: border-box; /* Inclure le padding et la bordure dans la largeur totale */
 }
+
 
 .newsletter button {
     padding: 0.5rem 1rem;
@@ -688,6 +693,13 @@ p {
     }
     .contact.section-content h2{
         display: none;
+    }
+    
+    .newsletter input {
+        max-width: 100%; /* Sur les petits écrans, le champ de saisie prend toute la largeur */
+        margin-right: 0; /* Supprimer la marge à droite pour éviter le débordement */
+        margin-bottom: 1rem; /* Espace en dessous du champ de saisie */
+        padding: 1rem;
     }
     
 
