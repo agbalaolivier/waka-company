@@ -336,9 +336,7 @@ main {
 .flys:hover {
     transform: scale(1.05); /* Agrandit légèrement l'article au survol */
 }
-.flys h3{
-    color:blue;
-}
+
 
 .service-card:hover {
     transform: translateY(-5px);
