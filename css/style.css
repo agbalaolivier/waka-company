@@ -128,6 +128,7 @@ h2 {
     font-size: 2.5rem; /* Augmente la taille du titre */
     text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2); /* Ombre portée pour le titre */
     margin-bottom: 1.5rem; /* Espace en dessous du titre */
+    
 }
 /* Animation pour les titres */
 @keyframes fadeIn {
@@ -151,14 +152,7 @@ h2 {
     50% { border-color: #800020; }
 }
 
-/* Styles pour les titres */
-h2 {
-    font-size: 2.5rem; /* Augmente la taille du titre */
-    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2); /* Ombre portée pour le titre */
-    margin-bottom: 1.5rem; /* Espace en dessous du titre */
-    animation: fadeIn 0.8s ease-in-out; /* Applique l'animation */
-    opacity: 0; /* Commence invisible */
-}
+
 
 /* Ajoutez une classe pour activer l'animation */
 .section-content.active h2 {
@@ -318,6 +312,18 @@ main {
     display: none;
     background-color: #f4f4f4; /* Couleur de fond */
     
+}
+.service-details-btn {
+    display: inline-block; /* Pour que le lien se comporte comme un bouton */
+    padding: 10px 20px; /* Espacement interne */
+    background-color: #007bff; /* Couleur de fond */
+    color: white; /* Couleur du texte */
+    border-radius: 8px; /* Coins arrondis */
+    text-decoration: none; /* Supprimer le soulignement */
+    transition: background-color 0.3s; /* Animation pour l'effet de survol */
+}
+.service-details-btn:hover {
+    background-color: #0056b3; /* Couleur de fond au survol */
 }
 .flys{
     border-radius: 8px; /* Coins arrondis */

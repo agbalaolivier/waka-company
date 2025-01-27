@@ -82,6 +82,7 @@ document.addEventListener("DOMContentLoaded", function() {
             alert('Erreur lors de l\'envoi du message.');
         });
     });
+   
     // Ajout d'un événement de clic sur le titre
     document.getElementById('toggle-flys').addEventListener('click', function() {
         const flysContainer = document.querySelector('.flys-container');
