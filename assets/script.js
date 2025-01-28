@@ -72,7 +72,7 @@ document.addEventListener("DOMContentLoaded", function() {
             if (response.ok) {
                 alert('Message envoyé avec succès !');
                 // Réinitialiser le formulaire
-                document.getElementById('contact-form').reset();
+                 contactForm.reset();
             } else {
                 alert('Erreur lors de l\'envoi du message.');
             }
@@ -89,10 +89,6 @@ document.addEventListener("DOMContentLoaded", function() {
         flysContainer.style.display = flysContainer.style.display === 'none' ? 'block' : 'none'; // Alterner l'affichage
     });
 
-    // CORS configuration
-    const cors = require('cors');
-    app.use(cors({
-        origin: 'http://127.0.0.1:5500' // Remplacez par l'origine de votre frontend
-    }));
+
     
 });

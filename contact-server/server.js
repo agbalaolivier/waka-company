@@ -47,10 +47,10 @@ app.post('/api/contact', (req, res) => {
     });
 
     const mailOptions = {
-        from: email,
+        from: 'ronniking99@gmail.com',
         to: process.env.EMAIL,
-        subject: `Nouveau message de ${sanitizedName}`,
-        text: sanitizedMessage
+        subject: 'Test Email',
+        text:  'Ceci est un test.',
     };
 
     transporter.sendMail(mailOptions, (error, info) => {
