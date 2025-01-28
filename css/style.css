@@ -721,12 +721,11 @@ bottom: 0;
     }
     .logo-img.active {
         
-        top: 10%; /* Centrer verticalement */
-        left: 24%; /* Centrer horizontalement */
-        transform: translate(-10%, -10%) scale(1.5); /* Agrandir et centrer */
-        z-index: 1000; /* Au-dessus des autres éléments */
+        top: 50%; /* Centrer verticalement */
+        left: 50%; /* Centrer horizontalement */
+        transform: translate(-50%, -50%) scale(1.5); /* Agrandir et centrer */
         cursor: pointer; /* Curseur pointer */
-        max-width: 70%; /* Limite la largeur maximale de l'image */
+        max-width: 80%; /* Limite la largeur maximale de l'image */
     
         }
    
