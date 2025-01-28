@@ -719,6 +719,16 @@ bottom: 0;
         width: 100%;
         max-width: 80%; /* Réduit la taille de l'image sur les petits écrans */
     }
+    .logo-img.active {
+        
+        top: 10%; /* Centrer verticalement */
+        left: 24%; /* Centrer horizontalement */
+        transform: translate(-10%, -10%) scale(1.5); /* Agrandir et centrer */
+        z-index: 1000; /* Au-dessus des autres éléments */
+        cursor: pointer; /* Curseur pointer */
+        max-width: 70%; /* Limite la largeur maximale de l'image */
+    
+        }
    
     
     
