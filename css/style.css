@@ -98,19 +98,17 @@ body {
     flex-direction: column; 
     position: relative;
     bottom: 8em;
+    
+    
 
 }
 .director-photo img{
-    width: 80px;
+    width: 100%;
+    height: auto;
+    max-width: 150px;
     display: block; 
-    width: 100px; 
     border-radius: 10%;
     object-fit: cover;
-    
-    
-
-    
-    
     
 }
 
@@ -435,7 +433,8 @@ main {
 .contact.section-content {
     background-color: #f4f4f4;
     padding: 4rem 2rem;
-    display: none; /* Caché par défaut */
+    
+    
 }
 
 .contact.section-content.active {
@@ -707,13 +706,23 @@ p {
         margin-bottom: 1rem; /* Espace en dessous du champ de saisie */
         padding: 1rem;
     }
+    .director-photo{
+position: relative;
+bottom: 0;
+    }
+    .director-photo img {
+        max-width: 80%; /* Réduit la taille de l'image sur les petits écrans */
+    }
+    
     
 
     }
     @media (max-width: 600px) {
         .flys img {
             max-width: 100px; /* Ajuster la taille des images sur les petits écrans */
+            
         }
+        
     }
     
     @media (max-width: 400px) {
