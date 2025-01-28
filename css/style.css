@@ -675,10 +675,7 @@ p {
         display: flex;
         flex-direction: column;
     }
-    .logo-img {
-        width: 100%;
-        
-    }
+   
 
     .main-nav ul {
         flex-direction: column;
@@ -735,6 +732,14 @@ bottom: 0;
         }
         .flys img {
             max-width: 100px; /* Ajuster la taille des images sur les petits écrans */
+            
+        }
+        .logo-img{
+            width: 13em;
+            height: auto;
+            border-radius: 20%;
+            transition: transform 0.5s ease;    
+            border: 2px solid red;
             
         }
         
