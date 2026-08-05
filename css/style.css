@@ -986,22 +986,70 @@ main {
         align-items: center !important;
         gap: 12px !important;
     }
+    .main-nav {
+        width: 100% !important;
+        overflow-x: auto !important; /* Permet le swipe horizontal */
+        scroll-behavior: smooth;
+        -webkit-overflow-scrolling: touch; /* Défilement fluide sur iOS */
+        padding: 0.5rem 0 !important;
+    }
+    .main-nav::-webkit-scrollbar {
+        display: none !important;
+    }
+    .main-nav {
+        scrollbar-width: none !important; /* Firefox */
+    }
+
+
 
     .main-nav ul {
-        flex-direction: column; /* Conservé */
-        gap: 5px; /* Ajusté */
-        width: 100%; /* Conservé */
         background: transparent;
-        padding: 0;
+        display: flex !important;
+        flex-direction: row !important; /* Force l'alignement horizontal */
+        flex-wrap: nowrap !important;   /* Empêche le retour à la ligne */
+        gap: 0.8rem !important;
+        padding: 0 1rem !important;
+        margin: 0 !important;
+        width: max-content !important;  /* Laisse la liste s'étendre horizontalement */
+    }
+    .main-nav li {
+        width: auto !important;
+        flex-shrink: 0 !important;      /* Empêche les boutons de se réduire */
+    }
+    /* Style des onglets cliquables (puces modernes) */
+    .main-nav a {
+        display: inline-block !important;
+        padding: 0.5rem 1rem !important;
+        font-size: 0.9rem !important;
+        font-weight: 600 !important;
+        color: #333 !important;
+        background: #f1f5f9 !important;
+        border-radius: 20px !important;  /* Style pilule moderne */
+        white-space: nowrap !important; /* Garde le texte sur 1 seule ligne */
+        transition: all 0.3s ease !important;
+    }
+
+    /* Onglet actif ou survolé */
+    .main-nav a.active,
+    .main-nav a:hover {
+        background: #007bff !important;
+        color: #ffffff !important;
+        box-shadow: 0 2px 8px rgba(0, 123, 255, 0.3) !important;
+    }
     }
     
-    .main-nav li { width: 100%; }
+    .main-nav li {
+        width: auto !important;
+        flex-shrink: 0 !important;      /* Empêche les boutons de se réduire */
+    }
 
     .main-nav a {
         text-align: center; /* Conservé 'left' d'origine, centré est plus moderne ici */
         display: block;
         width: 100%;
         border-radius: 10px;
+        width: auto !important;
+        flex-shrink: 0 !important;      /* Empêche les boutons de se réduire */
     }
     
     /* img logo mobile - DIMENSION CONSERVÉE */
