@@ -972,14 +972,19 @@ main {
 /* Mobile (max-width: 600px) - CONSERVÉ */
 @media (max-width: 600px) {
     .main-header {
-        flex-direction: column; /* Conservé */
-        padding: 1rem; /* Ajusté */
+         padding: 0.5rem 1rem !important;
+        flex-direction: column;
+        align-items: center;
     }
 
     .logo-container {
         width: 100%;
         justify-content: center;
-        margin-bottom: 1rem;
+        margin: 0 !important;
+        display: flex !important;
+        flex-direction: flex !important; /* Alignement horizontal */
+        align-items: center !important;
+        gap: 12px !important;
     }
 
     .main-nav ul {
@@ -1006,7 +1011,51 @@ main {
 
     .services-grid { gap: 1.5rem; }
     .about-list { grid-template-columns: 1fr; }
+    
+    /* Header compact */
+
+    /* Container du logo réinventé */
+    .logo-container {
+        
+    }
+
+    /* Logo réduit et proportionné */
+    .logo-img {
+        width: 50px !important; /* Taille contrôlée et discrète */
+        height: auto !important;
+        border-radius: 10px !important;
+    }
+
+    /* Textes SIRET et SIREN : discrets, sur une seule ligne ou en petit sous-texte */
+    .siret, .siren {
+        font-size: 0.65rem !important;
+        color: #64748b !important;
+        background: transparent !important;
+        box-shadow: none !important;
+        border: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        display: inline-block !important;
+    }
+
+    /* Navigation plus compacte et horizontale ou resserrée */
+    .main-nav ul {
+        display: flex !important;
+        flex-direction: row !important; /* Alignement horizontal */
+        flex-wrap: wrap !important;
+        justify-content: center !important;
+        gap: 8px 15px !important;
+        padding: 0.5rem 0 !important;
+        margin: 0 !important;
+    }
+
+    .main-nav a {
+        font-size: 0.9rem !important;
+        padding: 4px 8px !important;
+        font-weight: 600 !important;
+    }
 }
+
 
 /* Très petits mobiles (max-width: 400px) - CONSERVÉ */
 @media (max-width: 400px) {
