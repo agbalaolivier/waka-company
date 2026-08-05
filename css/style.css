@@ -36,51 +36,49 @@ body {
    CSS pour l'écran de chargement - CONSERVÉ & AMÉLIORÉ
    ========================================================================== */
 .loading {
-    position: fixed; /* Conservé */
-    top: 0; /* Conservé */
-    left: 0; /* Conservé */
-    width: 100%; /* Conservé */
-    height: 100%; /* Conservé */
-    background-color: rgba(255, 255, 255, 0.9); /* Moins transparent pour focus */
-    display: flex; /* Conservé */
-    justify-content: center; /* Conservé */
-    align-items: center; /* Conservé */
-    z-index: 9999; /* Conservé */
-    display: none; /* Masqué par défaut - Conservé */
-    flex-direction: column; /* Pour texte sous loader */
-    backdrop-filter: blur(5px); /* Effet moderne */
     position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
-    height: 4px; /* Très fin, ne gène pas la vue */
-    background-color: transparent;
-    display: none;
+    height: 100%;
+    /* Fond très léger (15% d'opacité au lieu de 80%) */
+    background-color: rgba(255, 255, 255, 0.15); 
+    /* Floute légèrement le contenu en dessous sans l'obstruer */
+    backdrop-filter: blur(4px); 
+    -webkit-backdrop-filter: blur(4px);
+    
+    display: flex;
+    flex-direction: column; /* Aligne le spinner et le texte proprement */
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    display: none; /* Masqué par défaut */
 }
 
 .loader {
-    border: 4px solid #f3f3f3; /* Plus fin, plus élégant */
-    border-top: 4px solid var(--primary-color); /* Couleur d'origine via variable */
-    border-radius: 50%; /* Conservé */
-    width: 50px; /* Taille conservée */
-    height: 50px; /* Taille conservée */
-    animation: spin 1s linear infinite; /* Animation conservée */
-    box-shadow: var(--shadow-md);
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, #3498db, #800020);
-    border: none;
-    border-radius: 0;
-    animation: loadingBar 1.5s ease-in-out infinite;
+   border: 5px solid rgba(0, 0, 0, 0.1); /* Bordure discrète */
+    border-top: 5px solid #3498db;
+    border-radius: 50%;
+    width: 40px; /* Taille légèrement réduite */
+    height: 40px;
+    animation: spin 1s linear infinite; 
 }
 
 /* Animation spin - CONSERVÉE */
 @keyframes spin {
-    0% { transform: translateX(-100%); }
-    100% { transform: translateX(100%); }
+   0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); } 
 
 }
 
 .loading p {
-   display: none;
+  margin-top: 12px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #1e293b;
+    background: rgba(255, 255, 255, 0.85); /* Petit badge propre pour le texte */
+    padding: 4px 12px;
+    border-radius: 20px;
 }
 
 /* ==========================================================================
