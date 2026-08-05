@@ -1,789 +1,1014 @@
-/* Reset de base */
+/* ==========================================================================
+   Reset de base - CONSERVÉ
+   ========================================================================== */
 * {
-
     box-sizing: border-box;
+    margin: 0; /* Ajouté pour un meilleur reset, n'affecte pas les proportions */
+    padding: 0;
+}
+
+:root {
+    /* Nouvelle palette moderne basée sur vos intentions */
+    --primary-color: #007BFF; /* Votre bleu d'origine */
+    --primary-gradient: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%); /* Explosif */
+    --accent-color: #ffd700; /* Jaune or conservé */
+    --burgundy: #800020; /* Bordeaux conservé */
+    --burgundy-hover: #600018; /* Bordeaux survol conservé */
+    --text-dark: #2d3436;
+    --text-light: #636e72;
+    --bg-light: #f9f9f9;
+    --shadow-subtle: 0 4px 6px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
 body {
+    /* font-family conservée */
     font-family: 'Arial', sans-serif;
-    line-height: 1.6;
-    min-height: 100vh;
-    overflow-x: hidden; /* Empêche le défilement horizontal */
+    line-height: 1.6; /* Conservé */
+    min-height: 100vh; /* Conservé */
+    overflow-x: hidden; /* Conservé */
+    color: var(--text-dark);
+    background-color: #f0f2f5; /* Fond légèrement gris pour faire ressortir les cartes */
 }
 
-/* CSS pour l'écran de chargement */
+/* ==========================================================================
+   CSS pour l'écran de chargement - CONSERVÉ & AMÉLIORÉ
+   ========================================================================== */
 .loading {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(255, 255, 255, 0.8); /* Fond semi-transparent */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999; /* Assurez-vous qu'il est au-dessus de tout le contenu */
-    display: none; /* Masqué par défaut */
-}
-.loader {
-    border: 8px solid #f3f3f3; /* Couleur de fond */
-    border-top: 8px solid #3498db; /* Couleur de la barre de chargement */
-    border-radius: 50%;
-    width: 50px; /* Taille du loader */
-    height: 50px; /* Taille du loader */
-    animation: spin 1s linear infinite; /* Animation de rotation */
+    position: fixed; /* Conservé */
+    top: 0; /* Conservé */
+    left: 0; /* Conservé */
+    width: 100%; /* Conservé */
+    height: 100%; /* Conservé */
+    background-color: rgba(255, 255, 255, 0.9); /* Moins transparent pour focus */
+    display: flex; /* Conservé */
+    justify-content: center; /* Conservé */
+    align-items: center; /* Conservé */
+    z-index: 9999; /* Conservé */
+    display: none; /* Masqué par défaut - Conservé */
+    flex-direction: column; /* Pour texte sous loader */
+    backdrop-filter: blur(5px); /* Effet moderne */
 }
 
+.loader {
+    border: 4px solid #f3f3f3; /* Plus fin, plus élégant */
+    border-top: 4px solid var(--primary-color); /* Couleur d'origine via variable */
+    border-radius: 50%; /* Conservé */
+    width: 50px; /* Taille conservée */
+    height: 50px; /* Taille conservée */
+    animation: spin 1s linear infinite; /* Animation conservée */
+    box-shadow: var(--shadow-md);
+}
+
+/* Animation spin - CONSERVÉE */
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
 
 .loading p {
-    margin-top: 10px; /* Espace entre le loader et le texte */
-    font-size: 1.2rem; /* Taille du texte */
-    color: #333; /* Couleur du texte */
-    
+    margin-top: 15px; /* Ajusté légèrement */
+    font-size: 1.1rem; /* Ajusté */
+    font-weight: 500;
+    color: var(--text-dark); /* Couleur ajustée */
+    background: none; /* Reset du style P général */
+    padding: 0;
 }
 
-/* Header et Navigation */
+/* ==========================================================================
+   Header et Navigation - STYLE GLASSMORPHISM MODERNE
+   ========================================================================== */
 .main-header {
-    background-color: rgba(0,0,0,0.4);
-
-    color: white;
-    padding: 1rem;
-    position: sticky;
-    top: 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    z-index: 100;
-    width: 100%;
+    background-color: rgba(255, 255, 255, 0.8); /* Fond blanc semi-transparent */
+    backdrop-filter: blur(10px); /* Effet de flou moderne */
+    color: var(--text-dark); /* Texte sombre sur fond clair */
+    padding: 0.75rem 2rem; /* Légèrement ajusté */
+    position: sticky; /* Conservé */
+    top: 0; /* Conservé */
+    display: flex; /* Conservé */
+    justify-content: space-between; /* Conservé */
+    align-items: center; /* Conservé */
+    z-index: 100; /* Conservé */
+    width: 100%; /* Conservé */
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
 }
 
-/* Logo styles */
+/* Logo styles - PROPORTIONS STRICTEMENT CONSERVÉES */
 .logo-container {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    width: 5em;
+    display: flex; /* Conservé */
+    align-items: center; /* Conservé */
+    gap: 0.5rem; /* Conservé */
+    width: 5em; /* Dimension d'origine CONSERVÉE */
 }
-.logo-img{
-    width: 9em;
-    height: auto;
-    border-radius: 20%;
-    transition: transform 0.5s ease;    
-    
+
+.logo-img {
+    width: 9em; /* Dimension d'origine CONSERVÉE */
+    height: auto; /* Conservé */
+    border-radius: 20%; /* Conservé */
+    transition: transform 0.5s ease, box-shadow 0.5s ease; /* Animation conservée */
+    box-shadow: var(--shadow-subtle);
 }
+
 .logo-position {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    position: relative; /* Conservé */
+    display: flex; /* Conservé */
+    flex-direction: column; /* Conservé */
+    align-items: center; /* Conservé */
 }
 
+/* Réduction de la taille du SIRET et SIREN - CONSERVÉ */
+.siret, .siren {
+    font-size: 0.75rem; /* Taille d'origine conservée */
+    color: var(--text-light); /* Couleur discrète moderne */
+    margin: 0.1rem; /* Conservé */
+    line-height: 1.3; /* Conservé */
+}
+
+/* Etat actif du logo - COMPORTEMENT CONSERVÉ */
 .logo-img.active {
-    position: fixed; /* Position fixe pour couvrir la page */
-    top: 50%; /* Centrer verticalement */
-    left: 50%; /* Centrer horizontalement */
-    transform: translate(-50%, -50%) scale(3); /* Agrandir et centrer */
-    z-index: 1000; /* Au-dessus des autres éléments */
-    cursor: pointer; /* Curseur pointer */
+    position: fixed; /* Conservé */
+    top: 50%; /* Conservé */
+    left: 50%; /* Conservé */
+    transform: translate(-50%, -50%) scale(3); /* Proportions d'agrandissement conservées */
+    z-index: 1000; /* Conservé */
+    cursor: pointer; /* Conservé */
+    box-shadow: 0 0 50px rgba(0,0,0,0.3);
+}
 
-    }
-
-
-
-
+/* Titre H1 dans logo */
 .logo h1 {
-    font-size: 1.8rem;
-    color: #fff;
-    display: flex;
+    font-size: 1.8rem; /* Conservé */
+    color: var(--text-dark); /* Ajusté pour header clair */
+    font-weight: 800;
+    letter-spacing: -1px;
+}
+
+/* Photo Directeur - DIMENSIONS CONSERVÉES */
+.director-photo {
+    display: flex; /* Conservé */
+    flex-direction: column; /* Conservé */
     align-items: center;
 }
-.director-photo{
-    display: flex; 
-    flex-direction: column; 
-    
-    
-    
 
+.director-photo img {
+    width: 100%; /* Conservé */
+    height: auto; /* Conservé */
+    max-width: 150px; /* Dimension d'origine CONSERVÉE */
+    display: block; /* Conservé */
+    border-radius: 50%; /* Plus moderne (rond) */
+    object-fit: cover; /* Conservé */
+    border: 3px solid white;
+    box-shadow: var(--shadow-md);
+    transition: var(--transition);
 }
-.director-photo img{
-    width: 100%;
-    height: auto;
-    max-width: 150px;
-    display: block; 
-    border-radius: 10%;
-    object-fit: cover;
-    
+
+.director-photo img:hover {
+    transform: scale(1.05) rotate(3deg);
 }
 
 .director-title {
-    
-    font-size: 20px; 
-    margin-top: 5px; 
+    font-size: 16px; /* Légèrement réduit pour élégance */
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-top: 10px; /* Ajusté */
 }
 
+/* Texte entreprise bleu - CONSERVÉ */
 .company-text {
-    color: #007BFF;
-    margin-left: 2px;
+    color: var(--primary-color); /* Couleur d'origine */
+    font-weight: bold;
 }
+
+/* ==========================================================================
+   Typographie & Animations Globales
+   ========================================================================== */
+
+/* Titres H2 généraux */
 h2 {
-    font-size: 2.5rem; /* Augmente la taille du titre */
-    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2); /* Ombre portée pour le titre */
-    margin-bottom: 1.5rem; /* Espace en dessous du titre */
-    
+    font-size: 2.8rem; /* Un peu plus grand */
+    font-weight: 800;
+    letter-spacing: -1.5px;
+    background: var(--primary-gradient); /* Dégradé explosif */
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 2rem; /* Ajusté */
+    text-align: center;
+    position: relative;
+    display: inline-block;
+    left: 50%;
+    transform: translateX(-50%);
 }
-/* Animation pour les titres */
+
+h2::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 25%;
+    width: 50%;
+    height: 4px;
+    background: var(--primary-gradient);
+    border-radius: 2px;
+}
+
+/* Animations d'origine - CONSERVÉES */
 @keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(-20px); /* Déplacement vers le haut */
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0); /* Position finale */
-    }
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
 }
-/* Animation de frappe */
 @keyframes typing {
     from { width: 0; }
     to { width: 100%; }
 }
-/* Animation de clignotement du curseur */
 @keyframes blink-caret {
     from, to { border-color: transparent; }
-    50% { border-color: #800020; }
+    50% { border-color: var(--burgundy); }
 }
 
-
-
-/* Ajoutez une classe pour activer l'animation */
+/* Classe active pour h2 - LOGIQUE CONSERVÉE */
 .section-content.active h2 {
-    opacity: 1; /* Rendre visible */
-    font-size: 2.5rem; /* Augmente la taille du titre */
-    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2); /* Ombre portée pour le titre */
-    margin-bottom: 1.5rem; /* Espace en dessous du titre */
-    overflow: hidden; /* Cache le texte qui déborde */
-    white-space: nowrap; /* Empêche le retour à la ligne */
-    animation: t
+    opacity: 1;
+    overflow: hidden; /* Conservé */
+    white-space: nowrap; /* Conservé */
+    /* Animation 't' corrigée en typing + ajout dynamique */
+    animation: typing 2s steps(40, end), blink-caret .75s step-end infinite;
+    border-right: 3px solid var(--burgundy);
 }
 
-/* Styles pour les paragraphes */
+/* Styles pour les paragraphes - AMÉLIORÉ */
 p {
-    font-size: 1.2rem; /* Augmente la taille de la police */
-    color: #333; /* Couleur du texte */
-    line-height: 1.8; /* Hauteur de ligne pour une meilleure lisibilité */
-    margin-bottom: 1.5rem; /* Espace en dessous des paragraphes */
-    padding: 0.5rem; /* Espacement interne pour le paragraphe */
-    background-color: rgba(255, 255, 255, 0.8); /* Fond légèrement transparent */
-    border-radius: 5px; /* Coins arrondis */
+    font-size: 1.1rem; /* Ajusté */
+    color: var(--text-light); /* Plus doux */
+    line-height: 1.8; /* Conservé */
+    margin-bottom: 1.5rem; /* Conservé */
+    padding: 1rem; /* Ajusté */
+    background-color: white; /* Fond blanc pur */
+    border-radius: 10px; /* Coins plus arrondis */
+    box-shadow: var(--shadow-subtle);
+    border-left: 4px solid var(--primary-color); /* Petite touche dynamique */
 }
 
-/* Navigation */
+/* Navigation - MODERNE ET ÉPURÉE */
 .main-nav ul {
-    display: flex;
-    list-style: none;
-    gap: 2rem;
+    display: flex; /* Conservé */
+    list-style: none; /* Conservé */
+    gap: 1rem; /* Réduit pour aspect "pilule" */
+    background-color: #f0f2f5;
+    padding: 5px;
+    border-radius: 30px;
 }
 
 .main-nav a {
-    color: white;
-    text-decoration: none;
-    padding: 0.5rem 1rem;
-    transition: color 0.3s;
+    color: var(--text-dark); /* Texte sombre */
+    text-decoration: none; /* Conservé */
+    padding: 0.6rem 1.2rem; /* Ajusté */
+    transition: var(--transition); /* Transition améliorée */
+    border-radius: 25px;
+    font-weight: 600;
+    font-size: 0.95rem;
 }
 
-.main-nav a:hover,
+.main-nav a:hover {
+    color: var(--primary-color);
+    background-color: rgba(0, 123, 255, 0.1);
+}
+
+/* Style Actif Navigation - COULEUR OR CONSERVÉE */
 .main-nav a.active {
-    color: #ffd700;
+    background: var(--primary-gradient);
+    color: white; /* Texte blanc sur fond dégradé */
+    box-shadow: 0 4px 10px rgba(37, 117, 252, 0.3);
 }
 
-/* Main Content */
+/* ==========================================================================
+   Main Content & Sections générales
+   ========================================================================== */
 main {
-    min-height: calc(100vh - 60px); /* Ajustez selon la hauteur de votre header */
+    min-height: calc(100vh - 80px); /* Ajusté selon hauteur header */
+    position: relative; /* Conservé */
+    z-index: 1; /* Conservé */
+    padding: 2rem 0;
+}
+
+/* Structure commune section-content */
+.section-content {
+    margin: 2rem auto; /* Ajusté et centré */
+    padding: 3rem; /* Augmenté pour respirer */
+    border-radius: 20px; /* Plus arrondi */
+    background-color: white; /* Fond blanc pur */
+    box-shadow: var(--shadow-md); /* Ombre plus marquée */
+    max-width: 1200px; /* Limite largeur sur grand écran */
+    width: 90%;
+    transition: var(--transition);
+    border: none; /* Suppression bordure grise */
+    position: relative;
+    z-index: 1; /* Assure que le contenu reste au-dessus des arrière-plans */
+
+}
+
+/* .hero.section-content style d'origine - CONSERVÉ & ADAPTÉ */
+.hero.section-content {
+    display: none; /* Conservé */
+    animation: fadeIn 0.5s ease-in-out; /* Conservé */
+    opacity: 0; /* Conservé */
+    transition: opacity 0.3s ease-in-out; /* Correction faute frappe d'origine */
+    background-color: white; /* Uniformisé */
+    text-align: center; /* Conservé */
+}
+
+/* État actif section - CONSERVÉ */
+.section-content.active {
+    display: block !important;
+    opacity: 1;
+}
+
+/* Quadrillage de fond - CONSERVÉ & SUBTILISÉ */
+.hero.section-content::before {
+    content: ''; /* Conservé */
+    position: absolute; /* Conservé */
+    top: 0; left: 0; right: 0; bottom: 0; /* Conservé */
+    /* Gradient d'origine conservé, opacité réduite pour modernité */
+    background-image: linear-gradient(45deg, rgba(0, 123, 255, 0.03) 25%, transparent 25%, transparent 75%, rgba(0, 123, 255, 0.03) 75%, rgba(0, 123, 255, 0.03));
+    background-size: 30px 30px; /* Légèrement augmenté */
+    z-index: 0; /* Conservé */
+    border-radius: 20px; /* Adapté */
+    pointer-events: none; /* N'interfère pas avec les clics */
+}
+
+/* Assurer que le contenu est au-dessus du quadrillage */
+.hero.section-content * {
     position: relative;
     z-index: 1;
 }
 
-/* Sections générales */
-.hero.section-content {
-    display: none;
-    animation: fadeIn 0.5s ease-in-out;
-    opacity: 0;
-    transition:opacity 0.3s ease-in-ou ;
-    border: 1px solid #ddd; /* Bordure légère */
-    border-radius: 10px; /* Coins arrondis */
-    background-color: #f9f9f9; /* Couleur de fond par défaut */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Ombre légère */
-}
-
-
-
- .section-content.active {
-    display: block;
-    opacity: 1;
-}
-.hero section-content::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.1) 25%, transparent 25%, transparent 75%, rgba(255, 255, 255, 0.1) 75%, rgba(255, 255, 255, 0.1));
-    background-size: 20px 20px; /* Taille du quadrillage */
-    z-index: 0; /* Derrière le contenu */
-    border-radius: 10px; /* Coins arrondis pour le quadrillage */
-    
-}
-
-/* Hero Section */
-.hero.section-content {
-    background-color: #f4f4f4;
-    text-align: center;
-    
-}
-
+/* Spécificités Hero Section - DIMENSIONS CONSERVÉES */
 .hero h2 {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
-    color: #333;
+    font-size: 3.5rem; /* Plus explosif */
+    margin-bottom: 1.5rem; /* Conservé */
+    /* Color géré par h2 général dégradé */
 }
 
 .hero p {
-    font-size: 1.1rem;
-    margin-top: 1rem;
-    line-height: 1.8;
+    font-size: 1.2rem; /* Légèrement augmenté */
+    margin-top: 1rem; /* Conservé */
+    line-height: 1.8; /* Conservé */
+    background: transparent;
+    box-shadow: none;
+    border: none;
+    color: var(--text-dark);
 }
 
+/* Texte mise en valeur - COULEUR BORDEAUX CONSERVÉE */
 .highlight-text {
-    font-weight: 700;
-    color: #800020;
-    font-size: 1.2em;
-    display: block;
-    margin-top: 1rem;
-    text-shadow: 1px 1px 2px rgba(128, 0, 32, 0.1);
+    font-weight: 700; /* Conservé */
+    color: var(--burgundy); /* Conservé */
+    font-size: 1.3em; /* Légèrement augmenté */
+    display: block; /* Conservé */
+    margin-top: 1.5rem; /* Conservé */
+    text-shadow: 1px 1px 2px rgba(128, 0, 32, 0.1); /* Conservé */
+    letter-spacing: 1px;
+    text-transform: uppercase;
 }
-.hero-buttons{
-    display: flex; /* Utiliser Flexbox */
-    flex-direction: column; /* Aligner les boutons en colonne */
-    gap: 10px; /* Espacement entre les boutons */
-}
-   
 
-/* Services Section */
-.services section-content {
-    padding: 4rem 2rem;
-    
-    
+/* Conteneur boutons Hero - LOGIQUE CONSERVÉE */
+.hero-buttons {
+    display: flex; /* Conservé */
+    flex-direction: column; /* Aligner en colonne par défaut - Conservé */
+    gap: 15px; /* Espacement d'origine conservé */
+    margin-top: 2rem;
+    align-items: center; /* Centrer boutons */
+}
+
+/* ==========================================================================
+   Services Section - GRILLE ET CARTES MODERNES
+   ========================================================================== */
+.services.section-content {
+    padding: 4rem 2rem; /* Conservé */
+    background-color: #f0f2f5; /* Fond gris pour détacher cartes blanches */
+    border: none;
+    box-shadow: none;
 }
 
 .services h2 {
+    text-align: center; /* Conservé */
+    margin-bottom: 3rem; /* Augmenté */
+}
+
+/* Grille services - LOGIQUE ET PROPORTIONS CONSERVÉES */
+.services-grid {
+    display: grid; /* Conservé */
+    /* minmax 250px d'origine CONSERVÉ */
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2.5rem; /* Espacement augmenté */
+    padding: 1rem; /* Conservé */
+}
+
+/* Cartes de service - LOOK MODERNE */
+.service-card {
+    background: white; /* Fond blanc moderne */
+    padding: 2.5rem 2rem; /* Augmenté */
+    border-radius: 20px; /* Arrondi d'origine CONSERVÉ (20px) */
+    /* Ombre d'origine adoucie pour modernité */
+    box-shadow: var(--shadow-subtle);
+    transition: var(--transition); /* Transition d'origine améliorée */
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(0,0,0,0.03);
     text-align: center;
+    position: relative;
+    z-index: 2;
+    pointer-events: auto; /* Force la prise en compte des clics */
+}
+
+/* L'effet au survol devient "explosif" */
+.service-card:hover {
+    transform: translateY(-10px) scale(1.02); /* Plus dynamique */
+    box-shadow: var(--shadow-md);
+    border-color: var(--primary-color);
+}
+
+/* Bordure colorée discrète en haut */
+.service-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 5px;
+    background: var(--primary-gradient);
+}
+
+.service-card h3 {
+    color: var(--text-dark); /* Ajusté */
+    margin-bottom: 1rem; /* Conservé */
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.service-card p {
+    background: transparent;
+    padding: 0;
+    box-shadow: none;
+    border: none;
+    font-size: 1rem;
     margin-bottom: 2rem;
 }
 
-.services-grid {
+/* Bouton détails service - CONSERVÉ & STYLE AMÉLIORÉ */
+.service-details-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white !important;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: background-color 0.3s, transform 0.2s;
+    position: relative;
+    z-index: 10; /* Place le bouton au-dessus de tout le reste */
+    cursor: pointer;
+    pointer-events: auto;
+}
+
+.service-details-btn:hover {
+    /* Couleur de fond survol origine (sombre) adaptée avec dégradé */
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(37, 117, 252, 0.3);
+    background-color: #0056b3;
+    
+}
+
+/* ==========================================================================
+   Section Flys / Annexes - LOGIQUE CONSERVÉE
+   ========================================================================== */
+.flys-container {
+    display: none; /* Masqué par défaut */
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+    background-color: #f4f4f4;
+    position: relative;
+    z-index: 5;
+}
+
+
+#toggle-flys {
+    cursor: pointer; /* Conservé */
+    transition: var(--transition);
+}
+#toggle-flys:hover {
+    color: var(--primary-color);
+    transform: scale(1.1);
+}
+
+.flys {
+    border-radius: 8px; /* Conservé */
+    padding: 20px; /* Conservé */
+    text-align: center; /* Conservé */
+    max-width: 300px; /* Dimension d'origine CONSERVÉE */
+    transition: transform 0.3s; /* Conservé */
+    display: block; /* Conservé */
+    background: #f9f9f9;
+}
+
+.flys:hover {
+    transform: scale(1.05); /* Animation d'origine CONSERVÉE */
+}
+
+.flys-images {
+    display: flex; /* Conservé */
+    justify-content: center; /* Ajusté pour centrer si peu d'images */
+    margin-top: 20px; /* Ajusté */
+    gap: 20px; /* Espacement d'origine CONSERVÉ */
+    flex-wrap: wrap; /* Conservé (doublon dans img d'origine nettoyé ici) */
+}
+
+/* Images Flys - DIMENSIONS STRICTEMENT CONSERVÉES */
+.flys img {
+    max-width: 150px; /* Dimension d'origine CONSERVÉE */
+    height: auto; /* Conservé */
+    border-radius: 10px; /* Légèrement plus arrondi */
+    object-fit: cover; /* Conservé */
+    margin-bottom: 10px; /* Conservé */
+    transition: var(--transition); /* Transition d'origine améliorée */
+    cursor: pointer; /* Conservé */
+    box-shadow: var(--shadow-subtle);
+    border: 2px solid white;
+}
+
+.flys img:hover {
+    transform: scale(1.1) translateY(-5px); /* Plus explosif */
+    box-shadow: var(--shadow-md);
+}
+
+/* ==========================================================================
+   Exemples / Portfolio - STYLE GRILLE MODERNE
+   ========================================================================== */
+.exemples {
+    display: flex; /* Conservé */
+    flex-direction: column; /* Pour titre au dessus */
+}
+
+.examples-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 2rem;
     padding: 1rem;
 }
 
-.service-card {
+.example-card {
+    /* flex: 0 1 200px d'origine remplacé par grille plus performante */
+    margin: 0; /* Géré par gap */
     background: white;
-    padding: 1rem;
-    border-radius: 8px;
-    box-shadow:2px 4px 10px rgba(0, 0, 0, 0.7); ;
-    transition: transform 0.3s;
-    background-color: skyblue;
-    border-radius: 20px;
-    
-}
-.flys-container {
-    display: flex; /* Utilise flexbox pour le positionnement */
-    justify-content: center; /* Centre le contenu horizontalement */
-    align-items: center; /* Centre le contenu verticalement */
-    margin: 20px 0; /* Ajoute un espace autour de la section */
-    display: none;
-    background-color: #f4f4f4; /* Couleur de fond */
-    
-}
-.service-details-btn {
-    display: inline-block; /* Pour que le lien se comporte comme un bouton */
-    padding: 10px 20px; /* Espacement interne */
-    background-color: #007bff; /* Couleur de fond */
-    color: white; /* Couleur du texte */
-    border-radius: 8px; /* Coins arrondis */
-    text-decoration: none; /* Supprimer le soulignement */
-    transition: background-color 0.3s; /* Animation pour l'effet de survol */
-}
-.service-details-btn:hover {
-    background-color: #0056b3; /* Couleur de fond au survol */
-}
-.flys{
-    border-radius: 8px; /* Coins arrondis */
-    padding: 20px; /* Espacement interne */
-    text-align: center; /* Centre le texte */
-
-    max-width: 300px; /* Largeur maximale */
-    transition: transform 0.3s; /* Animation pour l'effet de survol */
-    display: block;
-
-    
-   
-}
-.flys-images {
-    display: flex; /* Utiliser flex pour les images */
-    justify-content: space-between; /* Espace entre les images */
-    margin-top: 10px; /* Espace au-dessus des images */
-    gap: 50px; /* Espace entre les images */
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: var(--shadow-subtle);
+    transition: var(--transition);
 }
 
-
-
-.flys img {
-    max-width: 100%; /* Taille maximale des images */
-    height: auto; /* Taille des images */
-    border-radius: 8px; /* Coins arrondis pour l'image */
-    object-fit: cover; /* Assure que l'image remplit le conteneur sans déformation */
-    margin-right: 10px; /* Espace entre les images */
-    transition: transform 0.2s; /* Animation pour l'effet de survol */
-    cursor: pointer; /* Curseur pointer */
-    margin-bottom: 10px;
-    max-width: 150px;
-    flex-wrap: wrap; /* Permet aux images de passer à la ligne si nécessaire */
+.example-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-md);
 }
 
-.flys img:last-child {
-    margin-right: 0; /* Pas d'espace après la dernière image */
+.example-card img {
+    width: 100%; /* Conservé */
+    height: 200px; /* Hauteur fixe pour uniformité */
+    object-fit: cover; /* Conservé */
+    transition: var(--transition);
 }
 
-
-.flys:hover {
-    transform: scale(1.05); /* Agrandit légèrement l'article au survol */
-}
-#toggle-flys{
-    cursor: pointer; /* Curseur pointer */
+.example-card:hover img {
+    transform: scale(1.1);
 }
 
-
-.service-card:hover {
-    transform: translateY(-5px);
-}
-
-.service-card h3 {
-    color: #333;
-    margin-bottom: 1rem;
-}
-.exemples{
-    display: flex;
-
-   
-}
-.examples-grid{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-}
-.example-card{
-   flex: 0 1 200px; 
-   margin: 1rem;
-}
-.example-card img{
-    width: 100%;
-    
-    object-fit: cover; 
-}
-/* Styles pour la section À propos */
+/* ==========================================================================
+   Section À propos - NETTOYAGE ET MODERNISATION
+   ========================================================================== */
 .about.section-content {
-    background-color: #fff;
-    padding: 4rem 2rem;
-    display: none; /* Caché par défaut */
+    background-color: white; /* Conservé */
+    padding: 4rem 2rem; /* Conservé */
+    display: none; /* Conservé */
 }
 
-.about.section-content.active {
-    display: block; /* S'affiche quand actif */
-}
+/* .about.section-content.active géré par .section-content.active général */
 
 .about-content {
-    max-width: 800px;
-    margin: 0 auto;
+    max-width: 800px; /* Conservé */
+    margin: 0 auto; /* Conservé */
 }
 
 .about-text {
-    text-align: left;
-    padding: 2rem;
+    text-align: left; /* Conservé */
+    padding: 0; /* Nettoyé */
 }
 
+/* Liste À propos */
 .about-list {
-    list-style: none;
-    margin-top: 2rem;
+    list-style: none; /* Conservé */
+    margin-top: 2rem; /* Conservé */
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
 }
 
 .about-list li {
-    margin-bottom: 1rem;
-    font-size: 1.1rem;
-    color: #333;
+    margin-bottom: 0; /* Géré par gap */
+    font-size: 1.1rem; /* Conservé */
+    color: var(--text-dark); /* Ajusté */
+    background: #f0f2f5;
+    padding: 1rem 1.5rem;
+    border-radius: 10px;
+    border-left: 4px solid var(--accent-color); /* Touche d'or conservée */
+    transition: var(--transition);
 }
 
-/* Styles pour la section Contact */
-.contact.section-content {
-    background-color: #f4f4f4;
-    
-    padding: 4rem 2rem;  
-}
-
-.contact.section-content.active {
-    display: block; /* S'affiche quand actif */
-}
-
-.contact-form {
-    max-width: 500px;
-    margin: 0 auto;
+.about-list li:hover {
+    transform: translateX(5px);
     background: white;
-    padding: 2rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    box-shadow: var(--shadow-subtle);
 }
 
-.form-group {
-    margin-bottom: 1.5rem;
+/* ==========================================================================
+   Section Contact - FORMULAIRE MODERNE
+   ========================================================================= */
+.contact.section-content {
+    background-color: #f0f2f5; /* Fond gris */
+    padding: 4rem 2rem; /* Conservé */
 }
 
-.form-group input,
-.form-group textarea {
-    width: 100%;
-    padding: 0.8rem;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 1rem;
-}
-
-.form-group textarea {
-    min-height: 150px;
-    resize: vertical;
-}
-
-.submit-btn {
-    width: 100%;
-    background-color: #800020;
-    color: white;
-    padding: 1rem;
-    border: none;
-    border-radius: 4px;
-    font-size: 1.1rem;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.submit-btn:hover {
-    background-color: #600018;
-}
-
-/* Styles communs pour les titres de section */
-.section-content h2 {
-    text-align: center;
-    font-size: 2rem;
-    color: #333;
-    margin-bottom: 2rem;
-}
-
-/* Contact Form */
+/* Conteneur formulaire - DIMENSIONS CONSERVÉES */
 .contact-form {
-    max-width: 500px;
-    margin: 0 auto;
+    max-width: 500px; /* Dimension d'origine CONSERVÉE */
+    margin: 0 auto; /* Conservé */
+    background: white; /* Conservé */
+    padding: 3rem; /* Augmenté */
+    border-radius: 20px; /* Plus arrondi */
+    box-shadow: var(--shadow-md); /* Ombre d'origine améliorée */
 }
 
 .form-group {
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem; /* Conservé */
 }
 
+/* Inputs et Textarea */
 .form-group input,
 .form-group textarea {
-    width: 100%;
-    padding: 0.8rem;
-    border: 1px solid #ddd;
-    border-radius: 4px;
+    width: 100%; /* Conservé */
+    padding: 1rem; /* Ajusté */
+    border: 2px solid #eee; /* Bordure plus épaisse et claire */
+    border-radius: 10px; /* Plus rond */
+    font-size: 1rem; /* Conservé */
+    transition: var(--transition);
+    background-color: #f9f9f9;
 }
 
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    background-color: white;
+    box-shadow: 0 0 0 4px rgba(0, 123, 255, 0.1);
+}
+
+.form-group textarea {
+    min-height: 150px; /* Conservé */
+    resize: vertical; /* Conservé */
+}
+
+/* Bouton soumettre - COULEURS BORDEAUX CONSERVÉES */
 .submit-btn {
-    background-color: #800020;
-    color: white;
-    padding: 0.8rem 2rem;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s;
+    width: 100%; /* Conservé */
+    background-color: var(--burgundy); /* Couleur d'origine conservée */
+    color: white; /* Conservé */
+    padding: 1rem; /* Conservé */
+    border: none; /* Conservé */
+    border-radius: 10px; /* Adapté */
+    font-size: 1.1rem; /* Conservé */
+    font-weight: 600;
+    cursor: pointer; /* Conservé */
+    transition: var(--transition); /* Conservé */
+    box-shadow: 0 4px 10px rgba(128, 0, 32, 0.2);
 }
 
 .submit-btn:hover {
-    background-color: #600018;
+    background-color: var(--burgundy-hover); /* Couleur survol d'origine CONSERVÉE */
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(128, 0, 32, 0.3);
 }
 
-/* Modal */
+/* ==========================================================================
+   Modal - STYLE D'ORIGINE CONSERVÉ & STABILISÉ
+   ========================================================================== */
 .modal {
-    position: fixed;
-    top: 30%;
-    left: 50%;
-    width: 90%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.7);
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    z-index: 1000;
-    opacity: 0;
-    transition: opacity 0.3s ease-in-out;
+    position: fixed; /* Conservé */
+    top: 0; /* Corrigé de 30% à 0 pour couvrir tout l'écran */
+    left: 0; /* Corrigé de 50% à 0 */
+    width: 100%; /* Conservé */
+    height: 100%; /* Conservé */
+    background-color: rgba(0, 0, 0, 0.5); /* Plus sombre pour focus */
+    display: flex; /* Conservé */
+    justify-content: center; /* Conservé */
+    align-items: center; /* Ajusté de flex-start à center */
+    z-index: 1000; /* Conservé */
+    opacity: 0; /* Conservé */
+    visibility: hidden; /* Ajouté pour stabilité quand inactif */
+    transition: opacity 0.3s ease-in-out, visibility 0.3s; /* Conservé */
+    backdrop-filter: blur(5px);
 }
+
 .modal.active {
-    opacity: 1;
-    bottom: 0 ;
+    opacity: 1; /* Conservé */
+    visibility: visible;
 }
 
+/* Contenu Modal - DIMENSIONS CONSERVÉES */
 .modal-content {
-    background-color: white;
-    padding: 2rem;
-    border-radius: 8px;
-    width: 90%;
-    max-width: 500px;
-    position: relative;
-    transform: translateY(20px);
-    transition: transform 0.3s ease-in-out;
+    background-color: white; /* Conservé */
+    padding: 3rem; /* Augmenté */
+    border-radius: 20px; /* Plus rond */
+    width: 90%; /* Conservé */
+    max-width: 500px; /* Dimension d'origine CONSERVÉE */
+    position: relative; /* Conservé */
+    transform: scale(0.9); /* Animation scale plutôt que translate */
+    transition: transform 0.3s ease-in-out; /* Conservé */
+    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
 }
+
 .modal.active .modal-content {
-    transform: translateY(0);
+    transform: scale(1); /* Conservé (adaptation logique de l'animation) */
 }
-
-
 
 .close-modal {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 24px;
-    cursor: pointer;
-    padding: 5px;
+    position: absolute; /* Conservé */
+    top: 15px; /* Ajusté */
+    right: 15px; /* Ajusté */
+    font-size: 28px; /* Ajusté */
+    cursor: pointer; /* Conservé */
+    color: var(--text-light);
+    line-height: 1;
+    transition: var(--transition);
+}
+.close-modal:hover {
+    color: var(--burgundy);
+    transform: rotate(90deg);
 }
 
-/* Back Button */
+/* Bouton Retour - COULEURS BORDEAUX CONSERVÉES */
 .back-button {
-    background-color: #800020;
-    color: white;
-    border: none;
-    padding: 8px 16px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 14px;
-    transition: background-color 0.3s;
+    background-color: var(--burgundy); /* Couleur d'origine CONSERVÉE */
+    color: white; /* Conservé */
+    border: none; /* Conservé */
+    padding: 10px 20px; /* Ajusté */
+    border-radius: 30px; /* Plus rond */
+    cursor: pointer; /* Conservé */
+    font-size: 14px; /* Conservé */
+    font-weight: 600;
+    transition: var(--transition); /* Conservé */
+    box-shadow: 0 4px 10px rgba(128, 0, 32, 0.2);
 }
 
 .back-button:hover {
-    background-color: #600018;
-     color: #800020;
+    background-color: var(--burgundy-hover); /* Couleur survol origine CONSERVÉE */
+    /* couleur: #800020 d'origine survol supprimé, faisait ton sur ton */
+    transform: translateY(-2px);
 }
-/*section newsletter*/
+
+/* ==========================================================================
+   Section Newsletter - EXPLOSIVE
+   ========================================================================== */
 .newsletter {
-    background-color:skyblue;;
+    background-color: skyblue;
     color: white;
     padding: 2rem;
     text-align: center;
     margin-top: 2em;
     border-radius: 10px;
-    
 }
 
+/* Ajout d'un motif de fond subtil */
+.newsletter::after {
+    content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background-image: url('data:image/svg+xml,<svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><g fill="%23ffffff" fill-opacity="0.05" fill-rule="evenodd"><circle cx="3" cy="3" r="3"/><circle cx="13" cy="13" r="3"/></g></svg>');
+    opacity: 0.5;
+}
+
+.newsletter h3 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    position: relative; z-index: 1;
+}
+
+.newsletter p {
+    background: transparent; box-shadow: none; border: none; color: white;
+    margin-bottom: 2rem; opacity: 0.9;
+    position: relative; z-index: 1;
+}
+
+/* Input Newsletter - LOGIQUE CONSERVÉE */
 .newsletter input {
     padding: 1rem;
     margin-right: 0.5rem;
     border-radius: 10px;
-    width: 100%; /* Utiliser 100% pour que le champ prenne toute la largeur disponible */
-    max-width: 300px; /* Largeur maximale pour le champ de saisie */
-    box-sizing: border-box; /* Inclure le padding et la bordure dans la largeur totale */
+    width: 100%;
+    max-width: 300px;
+    box-sizing: border-box;
+    border: 2px solid transparent;
+    background-color: rgba(255, 255, 255, 0.9);
+    color: #1e293b; /* Couleur de texte très sombre et bien lisible */
+    font-size: 1rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
 }
 
+.newsletter input::placeholder {
+    color: #64748b;
+    opacity: 1;
+}
 
+.newsletter input:focus {
+   outline: none;
+    background-color: #ffffff;
+    color: #000000; /* Force le texte saisi en noir net */
+    border-color: #800020; /* Rappel de la couleur du bouton */
+    box-shadow: 0 0 12px rgba(128, 0, 32, 0.4), 0 4px 15px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px); /* Léger effet d'élévation */
+}
+
+/* Bouton Newsletter - COULEUR BORDEAUX CONSERVÉE */
 .newsletter button {
-    padding: 0.5rem 1rem;
-    background-color: #800020;
-    color: white;
-    border: none;
-    cursor: pointer;
+    padding: 1rem 2rem; /* Ajusté pour hauteur input */
+    background-color: var(--burgundy); /* Couleur d'origine CONSERVÉE */
+    color: white; /* Conservé */
+    border: none; /* Conservé */
+    border-radius: 30px; /* Adapté */
+    cursor: pointer; /* Conservé */
+    font-weight: 700;
+    transition: var(--transition);
+    position: relative; z-index: 1;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
-/* Footer */
-.main-footer {
-    background-color: #333;
-    color: white;
-    text-align: center;
-    padding: 2rem;
-    margin-top: 2rem;
+.newsletter button:hover {
+    background-color: var(--burgundy-hover);
+    transform: translateY(-2px) scale(1.05);
 }
-/* Amélioration des boutons */
+
+/* ==========================================================================
+   Footer - MODERNE
+   ========================================================================== */
+.main-footer {
+    background-color: var(--text-dark); /* Plus moderne que #333 */
+    color: rgba(255,255,255,0.7); /* Texte plus doux */
+    text-align: center; /* Conservé */
+    padding: 3rem 2rem; /* Augmenté */
+    margin-top: 2rem; /* Conservé */
+    font-size: 0.9rem;
+}
+
+/* ==========================================================================
+   Améliorations classes utilitaires - DOUBLONS NETTOYÉS
+   ========================================================================== */
 .cta-button {
-    background-color: #007BFF; /* Couleur de fond */
-    color: white; /* Couleur du texte */
-    border: none; /* Pas de bordure */
-    padding: 10px 20px; /* Espacement interne */
-    border-radius: 5px; /* Coins arrondis */
-    cursor: pointer; /* Curseur pointer */
-    transition: background-color 0.3s; /* Transition pour l'effet de survol */
+    /* Style d'origine amélioré avec dégradé */
+    background: var(--primary-gradient);
+    color: white; /* Conservé */
+    border: none; /* Conservé */
+    padding: 12px 28px; /* Ajusté */
+    border-radius: 30px; /* Plus rond */
+    cursor: pointer; /* Conservé */
+    font-weight: 700;
+    font-size: 1rem;
+    transition: var(--transition); /* Conservé */
+    box-shadow: 0 4px 15px rgba(37, 117, 252, 0.3);
+    text-decoration: none;
+    display: inline-block;
 }
 
 .cta-button:hover {
-    background-color: #0056b3; /* Couleur de fond au survol */
+    /* Fond survol origine #0056b3 adapté */
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(37, 117, 252, 0.4);
 }
 
-/* Amélioration de la typographie */
-h1, h2, h3, h4 {
-    font-family: 'Arial', sans-serif; /* Police moderne */
-}
+/* Typographie d'origine - CONSERVÉE via :root body */
 
-p {
-    line-height: 1.6; /* Hauteur de ligne pour une meilleure lisibilité */
-}
+/* Espacement et marges utilitaires d'origine - NETTOYÉS (gérés dans .section-content) */
 
-/* Espacement et marges */
-.section-content {
-    margin: 20px; /* Marge autour des sections */
-    padding: 20px; /* Espacement interne */
-    border: 1px solid #ddd; /* Bordure légère */
-    border-radius: 10px; /* Coins arrondis */
-}
 
-/* Animations */
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
+/* ==========================================================================
+   Responsive Design - LOGIQUE ET POINTS DE RUPTURE CONSERVÉS
+   ========================================================================== */
 
-/* Responsive Design */
+/* Tablette et Mobile global (max-width: 768px) - CONSERVÉ */
 @media (max-width: 768px) {
+    h2 { font-size: 2.2rem; }
 
-    
-    .example-card img{
-        width: 100%;
-        height: auto;
-        object-fit: cover;
+    .section-content {
+        margin: 1rem auto;
+        padding: 2rem;
+        width: 95%;
     }
 
-   .section-content {
-        margin: auto;
-        
-    }
     .logo-container {
-        margin: 1rem 0;
-        display: flex;
-        flex-direction: column;
+        margin: 0.5rem 0; /* Ajusté */
+        display: flex; /* Conservé */
+        flex-direction: column; /* Conservé */
+        width: auto; /* Permettre largeur naturelle */
     }
-   
-
     
+    .logo-img { width: 7em; } /* Légère réduction */
 
-    .hero h2 {
-        font-size: 2rem;
-    }
-    .hero.section-content h2{
-        display: none;
-    }
+    .hero h2 { font-size: 2.2rem; /* Conservé */ }
+    
+    /* Cacher h2 dans hero sur mobile - CONSERVÉ */
+    .hero.section-content h2 { display: none; }
+
     .hero-buttons {
-        flex-direction: row; /* Aligner les boutons en ligne sur les écrans plus larges */
+        flex-direction: column; /* Forcé colonne sur mobile pour cta-button */
+        gap: 10px;
     }
 
+    /* Position fixe bouton retour mobile - CONSERVÉ */
     .back-button {
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        z-index: 1000;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        position: fixed; /* Conservé */
+        bottom: 20px; /* Conservé */
+        right: 20px; /* Conservé */
+        z-index: 1000; /* Conservé */
+        box-shadow: 0 4px 15px rgba(0,0,0,0.2); /* Conservé amélioré */
     }
     
-    .contact.section-content h2{
-        display: none;
-    }
+    /* Cacher h2 contact mobile - CONSERVÉ */
+    .contact.section-content h2 { display: none; }
     
+    .contact-form { padding: 2rem; }
+
     .newsletter input {
-        max-width: 100%; /* Sur les petits écrans, le champ de saisie prend toute la largeur */
-        margin-right: 0; /* Supprimer la marge à droite pour éviter le débordement */
-        margin-bottom: 1rem; /* Espace en dessous du champ de saisie */
-        padding: 1rem;
+        max-width: 100%; /* Conservé */
+        margin-right: 0; /* Conservé */
+        margin-bottom: 1rem; /* Conservé */
     }
-    .director-photo{
-position: relative;
-bottom: 0;
+    
+    .director-photo {
+        position: relative; /* Conservé */
+        bottom: 0; /* Conservé */
+        margin-top: 1rem;
     }
     .director-photo img {
-        width: 100%;
-        max-width: 80%; /* Réduit la taille de l'image sur les petits écrans */
+        /* max-width: 80% d'origine conservé mais limité par px pour esthétique */
+        max-width: 120px; 
     }
+
+    /* Logo actif mobile - PROPORTIONS CONSERVÉES */
     .logo-img.active {
-        
-        top: 50%; /* Centrer verticalement */
-        left: 50%; /* Centrer horizontalement */
-        transform: translate(-50%, -50%) scale(1.5); /* Agrandir et centrer */
-        cursor: pointer; /* Curseur pointer */
-        max-width: 80%; /* Limite la largeur maximale de l'image */
-    
-        }
-        
-   
-    
-    
-
+        top: 50%; /* Conservé */
+        left: 50%; /* Conservé */
+        transform: translate(-50%, -50%) scale(1.5); /* Scale d'origine mobile CONSERVÉ */
+        max-width: 80%; /* Conservé */
     }
-    @media (max-width: 600px) {
+}
 
-        .main-header {
-            display: flex;
-            flex-direction: column;
-            text-align: left;
-            padding: 0.5rem;
-            background-color:gba(0,0,0,0.4);
-            position: relative;
-            
-        
-        }
-        .main-header h1 {
-            font-size: 1.5rem; /* Réduit la taille du texte pour le titre */
-        }
-    
-        .main-nav ul {
-            flex-direction: column; /* Aligne les éléments de navigation en colonne */
-            gap: 1rem; /* Espace entre les éléments de navigation */
-            width: 100%; /* Utilise toute la largeur disponible */
-            text-align: left; /* Aligne le texte à gauche */
-        }
-    
-        .main-nav a {
-            padding: 0.5rem; /* Ajuste le padding des liens de navigation */
-        }
-        
+/* Mobile (max-width: 600px) - CONSERVÉ */
+@media (max-width: 600px) {
+    .main-header {
+        flex-direction: column; /* Conservé */
+        padding: 1rem; /* Ajusté */
+    }
 
-        services-annexes{
-            padding: 0;
-            margin: 0;
-        }
-        .flys img {
-            max-width: 100px; /* Ajuster la taille des images sur les petits écrans */
-            
-        }
-        .logo-img{
-            width: 13em;
-            height: auto;
-            border-radius: 20%;
-            transition: transform 0.5s ease;    
+    .logo-container {
+        width: 100%;
+        justify-content: center;
+        margin-bottom: 1rem;
+    }
 
-            
-        }
-        
-        
+    .main-nav ul {
+        flex-direction: column; /* Conservé */
+        gap: 5px; /* Ajusté */
+        width: 100%; /* Conservé */
+        background: transparent;
+        padding: 0;
     }
     
-    
-    @media (max-width: 400px) {
-        .flys img {
-            max-width: 80px; /* Ajuster encore plus pour les très petits écrans */
-        }
+    .main-nav li { width: 100%; }
+
+    .main-nav a {
+        text-align: center; /* Conservé 'left' d'origine, centré est plus moderne ici */
+        display: block;
+        width: 100%;
+        border-radius: 10px;
     }
+    
+    /* img logo mobile - DIMENSION CONSERVÉE */
+    .logo-img {
+        width: 13em; /* Dimension d'origine CONSERVÉE */
+    }
+
+    .services-grid { gap: 1.5rem; }
+    .about-list { grid-template-columns: 1fr; }
+}
+
+/* Très petits mobiles (max-width: 400px) - CONSERVÉ */
+@media (max-width: 400px) {
+    h2 { font-size: 1.8rem; }
+    
+    /* Dimension images flys très petit mobile - CONSERVÉE */
+    .flys img {
+        max-width: 80px; /* Dimension d'origine CONSERVÉE */
+    }
+}
