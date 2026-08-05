@@ -1016,4 +1016,10 @@ main {
     .flys img {
         max-width: 80px; /* Dimension d'origine CONSERVÉE */
     }
+    @media (max-width: 400px) {
+    /* Masque le texte sous le spinner pour libérer l'espace */
+    .loading p {
+        display: none !important;
+    }
+}
 }
