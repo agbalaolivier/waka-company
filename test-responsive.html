@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Responsive - Modal & Services</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://kit.fontawesome.com/97cf61b80d.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <header class="main-header">
+        <div class="logo">
+            <div class="logo-container">
+                <a href="#accueil">
+                <img src="assets/images/logo.png" alt="logo-waka's company" class="logo-img">
+                </a>
+                <h1>Waka's<span class="company-text">Company</span></h1>
+            </div>
+            <p class="siret">SIRET:93802082300010</p>
+            <p class="siren">SIREN:938020823</p>
+        </div>
+    </header>
+
+    <main>
+        <!-- Test Services Section -->
+        <section id="services" class="services section-content">
+            <h2>Nos Services</h2>
+            <div class="services-grid">
+                <article class="service-card">
+                    <h3>Création de Sites Web</h3>
+                    <p>Sites vitrines, e-commerce, applications web sur mesure adaptés à vos besoins.</p>
+                    <a href="#" class="service-details-btn" onclick="openModal(event)">En savoir plus</a>
+                </article>
+                <article class="service-card">
+                    <h3>Design UX/UI</h3>
+                    <p>Interfaces modernes et intuitives pour une expérience utilisateur optimale.</p>
+                    <a href="#" class="service-details-btn" onclick="openModal(event)">En savoir plus</a>
+                </article>
+                <article class="service-card">
+                    <h3>Référencement SEO</h3>
+                    <p>Optimisation pour les moteurs de recherche et visibilité en ligne.</p>
+                    <a href="#" class="service-details-btn" onclick="openModal(event)">En savoir plus</a>
+                </article>
+            </div>
+        </section>
+
+        <!-- Test Modal -->
+        <div id="testModal" class="modal">
+            <div class="modal-content">
+                <span class="close-modal" onclick="closeModal()">&times;</span>
+                <h2>Détails du Service</h2>
+                <p>Ceci est un test du modal pour vérifier sa responsivité sur tous les écrans.</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                <button class="back-button" onclick="closeModal()">Fermer</button>
+            </div>
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <p>&copy; 2024 Waka'Company. Tous droits réservés.</p>
+    </footer>
+
+    <script>
+        function openModal(e) {
+            e.preventDefault();
+            const modal = document.getElementById('testModal');
+            modal.classList.add('active');
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('testModal');
+            modal.classList.remove('active');
+        }
+
+        // Fermer le modal en cliquant en dehors du contenu
+        window.onclick = function(event) {
+            const modal = document.getElementById('testModal');
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+    </script>
+</body>
+</html>

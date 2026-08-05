@@ -104,15 +104,18 @@ body {
     display: flex; /* Conservé */
     align-items: center; /* Conservé */
     gap: 0.5rem; /* Conservé */
-    width: 5em; /* Dimension d'origine CONSERVÉE */
+    width: auto; /* Allow natural sizing to avoid overflow and alignment issues */
 }
 
 .logo-img {
-    width: 9em; /* Dimension d'origine CONSERVÉE */
-    height: auto; /* Conservé */
+    width: auto;
+    max-width: 100%;
+    height: 3rem; /* Constrain height for consistent header alignment */
+    max-height: 3rem;
     border-radius: 20%; /* Conservé */
     transition: transform 0.5s ease, box-shadow 0.5s ease; /* Animation conservée */
     box-shadow: var(--shadow-subtle);
+    object-fit: contain;
 }
 
 .logo-position {
@@ -392,6 +395,10 @@ main {
     background-color: #f0f2f5; /* Fond gris pour détacher cartes blanches */
     border: none;
     box-shadow: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .services h2 {
@@ -406,6 +413,9 @@ main {
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 2.5rem; /* Espacement augmenté */
     padding: 1rem; /* Conservé */
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 /* Cartes de service - LOOK MODERNE */
@@ -734,6 +744,8 @@ main {
     transform: scale(0.9); /* Animation scale plutôt que translate */
     transition: transform 0.3s ease-in-out; /* Conservé */
     box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    max-height: 90vh;
+    overflow-y: auto;
 }
 
 .modal.active .modal-content {
@@ -967,6 +979,13 @@ main {
         transform: translate(-50%, -50%) scale(1.5); /* Scale d'origine mobile CONSERVÉ */
         max-width: 80%; /* Conservé */
     }
+
+    /* Modal responsive */
+    .modal-content {
+        padding: 2rem;
+        width: 95%;
+        max-width: calc(100% - 2rem);
+    }
 }
 
 /* Mobile (max-width: 600px) - CONSERVÉ */
@@ -1113,10 +1132,20 @@ main {
     .flys img {
         max-width: 80px; /* Dimension d'origine CONSERVÉE */
     }
-    @media (max-width: 400px) {
+
     /* Masque le texte sous le spinner pour libérer l'espace */
     .loading p {
         display: none !important;
     }
-}
+
+    /* Modal très responsif */
+    .modal-content {
+        padding: 1.5rem;
+        width: 95%;
+        max-width: calc(100% - 1rem);
+    }
+
+    .close-modal {
+        font-size: 24px;
+    }
 }
