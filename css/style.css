@@ -395,19 +395,24 @@ main {
    Services Section - GRILLE ET CARTES MODERNES
    ========================================================================== */
 .services.section-content {
-    padding: 4rem 2rem; /* Conservé */
-    background-color: #f0f2f5; /* Fond gris pour détacher cartes blanches */
     border: none;
     box-shadow: none;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+
+    padding: 4rem 1.5rem; /* Padding horizontal réduit sur mobile pour éviter le débordement */
+    background-color: #f0f2f5;
+    width: 100%;
+    box-sizing: border-box; /* Évite que le padding n'agrandisse la largeur totale */
 }
+
 
 .services h2 {
     text-align: center; /* Conservé */
-    margin-bottom: 3rem; /* Augmenté */
+    margin-bottom: 2rem;
+    width: 100%;
 }
 
 /* Grille services - LOGIQUE ET PROPORTIONS CONSERVÉES */
@@ -415,17 +420,21 @@ main {
     display: grid; /* Conservé */
     /* minmax 250px d'origine CONSERVÉ */
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 2.5rem; /* Espacement augmenté */
-    padding: 1rem; /* Conservé */
-    width: 100%;
     max-width: 1200px;
     margin: 0 auto;
+    display: flex;
+    flex-direction: column; /* Alignement en colonne sur mobile */
+    align-items: center;    /* Centre chaque carte horizontalement */
+    justify-content: center;
+    gap: 1.5rem;            /* Espace constant entre les cartes */
+    width: 100%;
+    padding: 0;             /* Supprime tout padding parasite */
+    box-sizing: border-box;
 }
 
 /* Cartes de service - LOOK MODERNE */
 .service-card {
     background: white; /* Fond blanc moderne */
-    padding: 2.5rem 2rem; /* Augmenté */
     border-radius: 20px; /* Arrondi d'origine CONSERVÉ (20px) */
     /* Ombre d'origine adoucie pour modernité */
     box-shadow: var(--shadow-subtle);
@@ -437,6 +446,13 @@ main {
     position: relative;
     z-index: 2;
     pointer-events: auto; /* Force la prise en compte des clics */
+    padding: 2rem;
+    width: 100%;
+    max-width: 350px;       /* Empêche la carte d'être trop large */
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;    /* Centre le contenu texte et bouton dans la carte */
 }
 
 /* L'effet au survol devient "explosif" */
@@ -982,6 +998,10 @@ input.valid {
         padding: 2rem;
         width: 95%;
     }
+    .services-grid {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
 
     .logo-container {
         margin: 0.5rem 0; /* Ajusté */
@@ -1181,7 +1201,7 @@ input.valid {
         padding: 4px 8px !important;
         font-weight: 600 !important;
     }
-}
+
 
 
 /* Très petits mobiles (max-width: 400px) - CONSERVÉ */
