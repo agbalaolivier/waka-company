@@ -110,13 +110,19 @@ body {
 .logo-img {
     width: auto;
     max-width: 100%;
-    height: 3rem; /* Constrain height for consistent header alignment */
-    max-height: 3rem;
+    height: 7rem; /* Constrain height for consistent header alignment */
+    max-height: 7rem; /* Constrain height for consistent header alignment */
     border-radius: 20%; /* Conservé */
     transition: transform 0.5s ease, box-shadow 0.5s ease; /* Animation conservée */
     box-shadow: var(--shadow-subtle);
     object-fit: contain;
+    filter: brightness(2) contrast(1.1);
+    transition: filter 0.3s ease; /* Pour une transition douce si tu as un effet au survol */
 }
+.logo-img:hover {
+    filter: brightness(1.35) contrast(1.15);
+}
+
 
 .logo-position {
     position: relative; /* Conservé */
