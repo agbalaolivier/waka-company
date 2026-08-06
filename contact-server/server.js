@@ -3,63 +3,76 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const nodemailer = require('nodemailer');
 const validator = require('validator');
-const helmet = require('helmet'); // Pour renforcer la sécurité des en-têtes HTTP
-const xss = require('xss'); // Pour filtrer les entrées utilisateur et prévenir les attaques XSS
-const cors = require('cors'); // Ajout de l'importation du module cors
-// ... existing code ...
+const helmet = require('helmet');
+const xss = require('xss');
+const cors = require('cors');
+const path = require('path'); // Nécessaire pour gérer les chemins de fichiers
 
 const app = express();
 const port = process.env.PORT || 3000;
-// Configuration de CORS
+
+// Configuration de CORS (autorise ton domaine Render + le local)
 app.use(cors({
-    origin: 'http://127.0.0.1:5500' // Remplacez par l'origine de votre frontend
+    origin: '*' // Autorise toutes les origines ou remplace par ton domaine Render exact
 }));
 
-// Middleware pour renforcer la sécurité
-app.use(helmet());
+// Middleware pour la sécurité
+app.use(helmet({
+    contentSecurityPolicy: false // Évite de bloquer les scripts/styles locaux en production
+}));
 app.use(bodyParser.json());
 
+// 1. SERVIR LES FICHIERS STATIQUES (HTML, CSS, JS, IMAGES)
+// Indique à Express d'aller chercher les fichiers dans le dossier parent (racine du projet)
+app.use(express.static(path.join(__dirname, '../')));
+
+// 2. ROUTE RACINE (Affiche index.html à la connexion)
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, '../index.html'));
+});
+
+// ROUTE API CONTACT
 app.post('/api/contact', (req, res) => {
     const { name, email, message } = req.body;
 
-    // Validation et filtrage des données
     if (!validator.isEmail(email)) {
-        console.error('Email invalide:', email); // Ajout d'un log
+        console.error('Email invalide:', email);
         return res.status(400).send('Adresse email invalide');
     }
     if (!name || !email || !message) {
-        console.error('Champs manquants:', { name, email, message }); // Ajout d'un log
+        console.error('Champs manquants:', { name, email, message });
         return res.status(400).send('Tous les champs sont requis.');
     }
 
-    const sanitizedName = xss(name); // Filtrer le nom pour prévenir les attaques XSS
-    const sanitizedMessage = xss(message); // Filtrer le message pour prévenir les attaques XSS
+    const sanitizedName = xss(name);
+    const sanitizedMessage = xss(message);
 
-    // Configurer le transporteur d'email avec un mot de passe d'application
     const transporter = nodemailer.createTransport({
         host: 'smtp.gmail.com',
         port: 465,
         secure: true,
         auth: {
             user: process.env.EMAIL,
-            pass: process.env.APP_PASSWORD // Utilisez un mot de passe d'application ici
+            pass: process.env.APP_PASSWORD
         }
     });
 
     const mailOptions = {
-        from: 'ronniking99@gmail.com',
+        from: process.env.EMAIL,
         to: process.env.EMAIL,
-        subject: 'Test Email',
-        text:  'Ceci est un test.',
+        subject: `Nouveau message de ${sanitizedName}`,
+        text: `Nom: ${sanitizedName}\nEmail: ${email}\nMessage: ${sanitizedMessage}`,
     };
 
     transporter.sendMail(mailOptions, (error, info) => {
         if (error) {
+            console.error('Erreur Nodemailer:', error);
             return res.status(500).send('Erreur lors de l envoi de l email.');
         }
         res.status(200).send('Message envoyé avec succès !');
     });
 });
+
 // Middleware pour gérer les erreurs
 app.use((err, req, res, next) => {
     console.error(err.stack);
