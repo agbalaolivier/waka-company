@@ -10,17 +10,17 @@
 </head>
 <body>
     <!-- Écran de chargement -->
-<div id="loading" class="loading">
-    <p>Chargement...</p>
-</div>
+    <div id="loading" class="loading">
+        <p>Chargement...</p>
+    </div>
+
     <header class="main-header">
         <div class="logo">
             <div class="logo-container">
                 <a href="#accueil">
-                <img src="assets/images/logo.png"alt="logo-waka's company" class="logo-img">
+                    <img src="assets/images/logo.png" alt="logo-waka's company" class="logo-img">
                 </a>
                 <h1>Waka's<span class="company-text">Company</span></h1>
-            
             </div>
             <p class="siret">SIRET:93802082300010</p>
             <p class="siren">SIREN:938020823</p>
@@ -31,72 +31,72 @@
                 <li><a href="#accueil">Accueil</a></li>
                 <li><a href="#services">Services</a></li>
                 <li><a href="#apropos">À propos de nous</a></li>
-                <li><a href="#contact">Contactez-nous</a></li>
+                <li><a href="#contact" class="open-modal-btn">Contactez-nous</a></li>
             </ul>
         </nav>
     </header>
 
     <main>
-        <section id="accueil" class="hero section-content">
+        <!-- Section Accueil -->
+        <section id="accueil" class="hero section-content active">
             <h2>Bienvenue chez Waka's Company</h2>
             <p>Votre partenaire de confiance pour <span class="highlight-text">[La création et le Développement de votre site web]</span></p>
             <div class="hero-buttons">
                 <a href="#services" class="cta-button">Découvrir Nos Services</a>
-                <a href="#contact" class="cta-button secondary">Nous Contacter</a>
-                
+                <!-- Bouton dédié uniquement à l'ouverture de la modale -->
+                <a href="#contact" class="cta-button secondary open-modal-btn">Nous Contacter</a>
             </div>
             <div class="examples">
                 <h3>Exemples de sites créés</h3>
                 <div class="examples-grid">
                     <div class="example-card">
-                        <a href="https://agbalaolivier.github.io/bouki/">
-                        <img src="assets/images/aw-creative.jpg" alt="logo-gameOne">
+                        <a href="https://agbalaolivier.github.io/bouki/" target="_blank">
+                            <img src="assets/images/aw-creative.jpg" alt="logo-gameOne">
                         </a>
                         <h4>Bouki</h4>
                         <p>Un site de recherche d'hébergement pour vos vacances de rêve.</p>
                     </div>
                     <div class="example-card">
-                        <a href="https://agbalaolivier.github.io/ohmyfood/">
-                        <img src="assets/images/image.jpg" alt="plat-restorant">
+                        <a href="https://agbalaolivier.github.io/ohmyfood/" target="_blank">
+                            <img src="assets/images/image.jpg" alt="plat-restorant">
                         </a>
                         <h4>Ohmyfood</h4>
                         <p>Un site de restauration où on peut commander son plat en ligne selon sa composition.</p>
                     </div>
                     <div class="example-card">
-                        <a href="https://agbalaolivier.github.io/Front-End-Fisheye/
-                        ">
-                        <img src="assets/images/Architecture_Dome.jpg" alt="site pour des photographe">
+                        <a href="https://agbalaolivier.github.io/Front-End-Fisheye/" target="_blank">
+                            <img src="assets/images/Architecture_Dome.jpg" alt="site pour des photographes">
                         </a>
                         <h4>Front-End-Fisheye</h4>
-                        <p>Un site idéal pour les photographes. Repertauriant les oeuvres, proposition de travail et le prix des prestations</p>
+                        <p>Un site idéal pour les photographes. Répertoriant les œuvres, propositions de travail et prix des prestations.</p>
                     </div>
                 </div>
             </div>
         </section>
 
+        <!-- Section Services -->
         <section id="services" class="services section-content">
             <h2>Nos Services</h2>
             <div class="services-grid">
                 <article class="service-card">
                     <h3>Création de Sites Web</h3>
                     <p>Sites vitrines, e-commerce, applications web sur mesure adaptés à vos besoins.</p>
-                    <a href="page_web.html" class="service-details-btn" data-service="web">En savoir plus</a> <!-- Lien cliquable -->
+                    <a href="page_web.html" class="service-details-btn" data-service="web">En savoir plus</a>
                 </article>
                 <article class="service-card">
                     <h3>Design UX/UI</h3>
                     <p>Interfaces modernes et intuitives pour une expérience utilisateur optimale.</p>
-                    <a href="page_design.html" class="service-details-btn" data-service="design">En savoir plus</a> <!-- Lien cliquable -->
+                    <a href="page_design.html" class="service-details-btn" data-service="design">En savoir plus</a>
                 </article>
                 <article class="service-card">
                     <h3>Référencement SEO</h3>
                     <p>Optimisation pour les moteurs de recherche et visibilité en ligne.</p>
-                    <a href="page_seo.html" class="service-details-btn" data-service="seo">En savoir plus</a> <!-- Lien cliquable -->
+                    <a href="page_seo.html" class="service-details-btn" data-service="seo">En savoir plus</a>
                 </article>
-                
             </div>
-            <section class="services-annexes">
-                <h3 id="toggle-flys" style="cursor: pointer;">Services annexes...</h3> <!-- Titre cliquable -->
-                <div class="flys-container" style="display: none;"> <!-- Masquer par défaut -->
+            <div class="services-annexes">
+                <h3 id="toggle-flys" style="cursor: pointer;">Services annexes...</h3>
+                <div class="flys-container" style="display: none;">
                     <article class="flys">
                         <h3>Achat et vente en ligne</h3>
                         <div class="flys-images">
@@ -109,16 +109,17 @@
                         </div>
                     </article>
                 </div>
-            </section>
-            
+            </div>
+        </section>
 
+        <!-- Section À Propos -->
         <section id="apropos" class="about section-content">
             <h2>À Propos de Nous</h2>
             <div class="about-content">
                 <div class="about-text">
                     <p>Waka'Company est une entreprise experte en développement web depuis plus de 5 ans, nous créons des solutions digitales innovantes, uniques et personnalisées.</p>
                     <p>Forts de notre expertise en React Native, Node.js et WordPress, nous accompagnons les entreprises à accélérer leur croissance numérique.</p> 
-                    <p>Notre approche collaborative et centrée utilisateur nous permet de concevoir des solutions innovantes qui répondent parfaitement à vos besoins. </p>
+                    <p>Notre approche collaborative et centrée utilisateur nous permet de concevoir des solutions innovantes qui répondent parfaitement à vos besoins.</p>
                     <ul class="about-list">
                         <li>✓ Expertise technique</li>
                         <li>✓ Accompagnement personnalisé</li>
@@ -128,52 +129,58 @@
             </div>
         </section>
 
+        <!-- Section Contact -->
         <section id="contact" class="contact section-content">
             <h2>Contactez-nous</h2>
             <div class="director-photo">
-            <img src="assets/images/moi1.jpg" alt="director-photo-style">
-            
-            <p class="director-title">
-                Gérant de Waka'Company
-            </p>
-            <p>Développeur web indépendant, je conçois des sites et applications web sur mesure, alliant performance, design moderne et expérience utilisateur fluide. Du site vitrine à la plateforme e-commerce, je transforme vos idées en solutions numériques à fort impact.
-
-Un projet en tête ou une idée à concrétiser ? Discutons-en directement par téléphone ou détaillez votre besoin via le formulaire ci-dessous pour obtenir un retour rapide.</p>
-            
-            </p>
-            <p class="director-phone"><i class="fa-solid fa-phone"></i> 06-51-62-82-69</p>
+                <img src="assets/images/moi1.jpg" alt="director-photo-style">
+                <p class="director-title">Gérant de Waka'Company</p>
+                <p>Développeur web indépendant, je conçois des sites et applications web sur mesure, alliant performance, design moderne et expérience utilisateur fluide.</p>
+                <p class="director-phone"><i class="fa-solid fa-phone"></i> 06-51-62-82-69</p>
+                <p class="director-email"><i class="fa-solid fa-envelope"></i> ronniking99@gmail.com</p>
             </div>
-            <form id="contact-form" class="contact-form">
-                <div class="form-group">
-                    <input type="text" id="name" name="name" required placeholder="Votre nom">
-                </div>
-                <div class="form-group">
-                    <input type="email" id="email" name="email" required placeholder="Votre email">
-                </div>
-                <div class="form-group">
-                    <textarea id="message" name="message" required placeholder="Votre message"></textarea>
-                </div>
-                <button type="submit" class="submit-btn">Envoyer</button>
-            </form>
-              <!-- HTML pour le formulaire de newsletter -->
-<section class="newsletter">
-    <h2>Inscrivez-vous à notre Newsletter</h2>
-    <form id="newsletter-form">
-        <input type="email" placeholder="Votre email" required>
-        <button type="submit">S'inscrire</button>
-    </form>
-</section>
-        </section>
-        
-      
+            
+           
 
+            <div class="newsletter">
+                <h2>Inscrivez-vous à notre Newsletter</h2>
+                <form id="newsletter-form">
+                    <input type="email"name="email" placeholder="Votre email" required>
+                    <button type="submit">S'inscrire</button>
+                </form>
+            </div>
+        </section>
     </main>
+
+    <!-- BOÎTE MODALE INTÉGRÉE -->
+    <div class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Demande de devis / Contact</h2>
+            <form id="modal-form">
+                <div class="form-group">
+                    <input type="text" id="modal-name" name="name" required placeholder="Votre nom">
+                </div>
+                <div class="form-group">
+                    <input type="email" id="modal-email" name="email" required placeholder="Votre email">
+                </div>
+                <div class="form-group">
+                    <textarea id="modal-message" name="message" required placeholder="Détaillez votre projet..."></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Envoyer la demande</button>
+            </form>
+        </div>
+        <div id="modal-success-message" style="display: none; text-align: center; padding: 20px;">
+            <i class="fa-solid fa-circle-check" style="color: #28a748; font-size: 3rem; margin-bottom: 15px;"></i>
+            <h2 id="success-title">Merci !</h2>
+            <p id="success-text">Votre message a bien été envoyé.</p>
+        </div>
+    </div>
 
     <footer class="main-footer">
         <p>&copy; 2024 Waka'Company. Tous droits réservés.</p>
     </footer>
     
     <script src="assets/script.js"></script>
-    
 </body>
 </html>

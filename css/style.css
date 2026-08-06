@@ -234,6 +234,9 @@ h2::after {
 }
 
 /* Classe active pour h2 - LOGIQUE CONSERVÉE */
+.section-content.active  {
+   display: block;
+}
 .section-content.active h2 {
     opacity: 1;
     overflow: hidden; /* Conservé */
@@ -311,6 +314,7 @@ main {
     border: none; /* Suppression bordure grise */
     position: relative;
     z-index: 1; /* Assure que le contenu reste au-dessus des arrière-plans */
+    display: none;
 
 }
 
@@ -711,60 +715,116 @@ main {
 /* ==========================================================================
    Modal - STYLE D'ORIGINE CONSERVÉ & STABILISÉ
    ========================================================================== */
+/* 1. La modale inactive NE DOIT PAS intercepter les clics */
+/* 1. Arrière-plan flouté et sombre */
 .modal {
-    position: fixed; /* Conservé */
-    top: 0; /* Corrigé de 30% à 0 pour couvrir tout l'écran */
-    left: 0; /* Corrigé de 50% à 0 */
-    width: 100%; /* Conservé */
-    height: 100%; /* Conservé */
-    background-color: rgba(0, 0, 0, 0.5); /* Plus sombre pour focus */
-    display: flex; /* Conservé */
-    justify-content: center; /* Conservé */
-    align-items: center; /* Ajusté de flex-start à center */
-    z-index: 1000; /* Conservé */
-    opacity: 0; /* Conservé */
-    visibility: hidden; /* Ajouté pour stabilité quand inactif */
-    transition: opacity 0.3s ease-in-out, visibility 0.3s; /* Conservé */
-    backdrop-filter: blur(5px);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(15, 23, 42, 0.75); /* Overlay sombre bleuté/moderne */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none !important;
+    transition: opacity 0.3s ease-in-out, visibility 0.3s;
+    backdrop-filter: blur(8px);
+    z-index: 99999;
 }
 
 .modal.active {
-    opacity: 1; /* Conservé */
+    opacity: 1;
     visibility: visible;
+    pointer-events: auto !important;
 }
 
-/* Contenu Modal - DIMENSIONS CONSERVÉES */
+/* 2. Fenêtre de la modale aux couleurs du site */
 .modal-content {
-    background-color: white; /* Conservé */
-    padding: 3rem; /* Augmenté */
-    border-radius: 20px; /* Plus rond */
-    width: 90%; /* Conservé */
-    max-width: 500px; /* Dimension d'origine CONSERVÉE */
-    position: relative; /* Conservé */
-    transform: scale(0.9); /* Animation scale plutôt que translate */
-    transition: transform 0.3s ease-in-out; /* Conservé */
-    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    background-color: #ffffff;
+    border: 2px solid var(--burgundy, #800020); /* Bordure élégante bordeaux */
+    padding: 2.5rem;
+    border-radius: 16px;
+    width: 90%;
+    max-width: 500px;
+    position: relative;
+    transform: scale(0.9);
+    transition: transform 0.3s ease-in-out;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
     max-height: 90vh;
     overflow-y: auto;
+    z-index: 100000;
 }
 
 .modal.active .modal-content {
-    transform: scale(1); /* Conservé (adaptation logique de l'animation) */
+    transform: scale(1);
 }
 
-.close-modal {
-    position: absolute; /* Conservé */
-    top: 15px; /* Ajusté */
-    right: 15px; /* Ajusté */
-    font-size: 28px; /* Ajusté */
-    cursor: pointer; /* Conservé */
-    color: var(--text-light);
-    line-height: 1;
-    transition: var(--transition);
+/* Titre de la modale */
+.modal-content h2 {
+    color: var(--burgundy, #800020);
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+    text-align: center;
 }
+
+/* 3. Style des champs de formulaire */
+.modal input,
+.modal textarea,
+.modal select {
+    width: 100%;
+    pointer-events: auto !important;
+    user-select: text !important;
+    -webkit-user-select: text !important;
+    cursor: text !important;
+    background-color: #f8fafc !important;
+    color: #1e293b !important;
+    border: 1.5px solid #cbd5e1;
+    padding: 12px 14px;
+    margin-top: 6px;
+    margin-bottom: 16px;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+/* Style pour indiquer une erreur en direct */
+input.invalid {
+    border: 2px solid #dc3545 !important;
+    outline: none;
+}
+
+/* Style quand la saisie est correcte */
+input.valid {
+    border: 2px solid #28a745 !important;
+}
+
+/* Focus sur les inputs */
+.modal input:focus,
+.modal textarea:focus {
+    outline: none;
+    border-color: var(--burgundy, #800020);
+    box-shadow: 0 0 0 3px rgba(128, 0, 32, 0.15);
+    background-color: #ffffff !important;
+}
+
+/* Bouton de fermeture (X) */
+.close-modal {
+    position: absolute;
+    top: 18px;
+    right: 20px;
+    font-size: 26px;
+    cursor: pointer;
+    color: #64748b;
+    line-height: 1;
+    transition: all 0.2s ease;
+    z-index: 100001;
+}
+
 .close-modal:hover {
-    color: var(--burgundy);
-    transform: rotate(90deg);
+    color: var(--burgundy, #800020);
+    transform: rotate(90deg) scale(1.1);
 }
 
 /* Bouton Retour - COULEURS BORDEAUX CONSERVÉES */
