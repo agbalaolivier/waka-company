@@ -49,12 +49,15 @@ app.post('/api/contact', (req, res) => {
 
     const transporter = nodemailer.createTransport({
         host: 'smtp.gmail.com',
-        port: 465,
-        secure: true,
+        port: 587,
+        secure: false,
         auth: {
             user: process.env.EMAIL,
             pass: process.env.APP_PASSWORD
-        }
+        },
+        tls: {
+        rejectUnauthorized: false // Prévient les rejets de certificats par les proxies cloud
+    }
     });
 
     const mailOptions = {
