@@ -320,15 +320,16 @@ main {
 
 
 .hero h1 {
-    font-size: clamp(1.3rem, 3.5vw, 2.3rem);
+    font-size: clamp(1.5rem, 5vw, 2.6rem);
     font-weight: 800;
     margin-bottom: 1rem;
     background: var(--primary-gradient);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
-    white-space: nowrap;
-    
+    text-align: center;
+    white-space: normal; /* Permet au titre de passer à la ligne proprement sur mobile */
+    word-break: break-word;
 }
 
 .hero-subtitle {
@@ -743,51 +744,76 @@ main {
 }
 
 /* ==========================================================================
-   13. RESPONSIVE DESIGN
+   RESPONSIVE DESIGN (MOBILE & TABLETTE)
    ========================================================================== */
 @media (max-width: 768px) {
-    .main-header {
-        flex-direction: column;
-        gap: 1rem;
-        padding: 1rem;
+    /* Sécurité anti-débordement horizontal */
+    html, body {
+        overflow-x: hidden;
+        width: 100%;
     }
 
-    .main-nav ul {
-        flex-wrap: wrap;
+    /* Header */
+    .main-header {
+        padding: 0.75rem 1rem;
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    .logo-wrapper {
+        width: 100%;
         justify-content: center;
     }
 
+    .brand-name {
+        font-size: 1.3rem;
+    }
+
+    .legal-info {
+        font-size: 0.65rem;
+    }
+
+    /* Navigation */
+    .main-nav {
+        width: 100%;
+    }
+
+    .main-nav ul {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 0.3rem;
+        padding: 4px;
+    }
+
+    .main-nav a {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.85rem;
+    }
+
+    /* Hero & Cartes */
     .hero h1 {
-        font-size: 2.1rem;
+        font-size: clamp(1.4rem, 5vw, 2rem);
+        white-space: normal; /* Permet au titre de passer à la ligne sur mobile */
+    }
+
+    .hero-card, 
+    .section-content {
+        width: 95%;
+        padding: 1.5rem 1rem;
+        margin: 1rem auto;
+    }
+
+    .hero-subtitle {
+        font-size: 0.95rem;
     }
 
     .hero-buttons {
         flex-direction: column;
+        width: 100%;
     }
 
     .cta-button {
         width: 100%;
-    }
-
-    .section-content {
-        padding: 2rem 1.25rem;
-        width: 95%;
-    }
-
-    .newsletter form {
-        flex-direction: column;
-    }
-
-    .newsletter input[type="email"] {
-        max-width: 100%;
-    }
-}
-/* Ajustement Mobile */
-@media (max-width: 768px) {
-    .brand-name {
-        font-size: 1.3rem;
-    }
-    .legal-info {
-        font-size: 0.65rem;
     }
 }
