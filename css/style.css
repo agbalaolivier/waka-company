@@ -249,7 +249,6 @@ h2::after {
     white-space: nowrap; /* Conservé */
     /* Animation 't' corrigée en typing + ajout dynamique */
     animation: typing 2s steps(40, end), blink-caret .75s step-end infinite;
-    border-right: 3px solid var(--burgundy);
 }
 
 /* Styles pour les paragraphes - AMÉLIORÉ */
@@ -423,19 +422,15 @@ main {
 
 /* Grille services - LOGIQUE ET PROPORTIONS CONSERVÉES */
 .services-grid {
-    display: grid; /* Conservé */
-    /* minmax 250px d'origine CONSERVÉ */
+    display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
     max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column; /* Alignement en colonne sur mobile */
-    align-items: center;    /* Centre chaque carte horizontalement */
-    justify-content: center;
-    gap: 1.5rem;            /* Espace constant entre les cartes */
     width: 100%;
-    padding: 0;             /* Supprime tout padding parasite */
+    margin: 0 auto;
+    padding: 0 20px;
     box-sizing: border-box;
+
 }
 
 /* Cartes de service - LOOK MODERNE */
