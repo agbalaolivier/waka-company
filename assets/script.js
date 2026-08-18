@@ -5,8 +5,8 @@ document.addEventListener("DOMContentLoaded", function() {
     if (typeof emailjs !== 'undefined') {
         emailjs.init("ycxVpyjoNcogYWwHY");
     }
-
-    const navLinks = document.querySelectorAll('.main-nav a');
+    const navLinks = document.querySelectorAll('.main-nav a, .nav-link');
+    const sections = document.querySelectorAll('.section-content');
     const loadingScreen = document.getElementById('loading');
     const logoImg = document.querySelector('.logo-img');
     

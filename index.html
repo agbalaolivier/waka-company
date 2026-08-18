@@ -15,16 +15,20 @@
     </div>
 
     <header class="main-header">
-        <div class="logo">
-            <div class="logo-container">
-                <a href="#accueil">
-                    <img src="assets/images/logo.png" alt="logo-waka's company" class="logo-img">
-                </a>
-                <h1>Waka's<span class="company-text">Company</span></h1>
+        <div class="logo-wrapper">
+    <a href="#accueil" class="logo-link">
+        <img src="assets/images/logo.png" alt="Logo Waka's Company" class="logo-img">
+        <div class="logo-text">
+            <span class="brand-name">Waka's<span class="company-text">Company</span></span>
+            <div class="legal-info">
+                <span>SIRET : 93802082300010</span>
+                <span>•</span>
+                <span>SIREN : 938020823</span>
             </div>
-            <p class="siret">SIRET:93802082300010</p>
-            <p class="siren">SIREN:938020823</p>
         </div>
+    </a>
+</div>
+        
         
         <nav class="main-nav">
             <ul>
@@ -46,49 +50,54 @@
 
     <main>
         <!-- Section Accueil -->
-        <section id="accueil" class="hero section-content active">
-            <h2>Bienvenue chez Waka's Company</h2>
-            <p>Votre partenaire de confiance pour <span class="highlight-text">[La création et le Développement de votre site web]</span></p>
-            <div class="hero-buttons">
-                <a href="#services" class="cta-button">Découvrir Nos Services</a>
-                <!-- Bouton dédié uniquement à l'ouverture de la modale -->
-                <a href="#contact" class="cta-button secondary open-modal-btn">Nous Contacter</a>
-            </div>
-            <div class="examples">
-                <h3>Exemples de sites créés</h3>
-                <div class="examples-grid">
+<section id="accueil" class="hero section-content active">
+    <div class="hero-container hero-card">
+        <h1>Bienvenue chez Waka's Company</h1>
+        <p class="hero-subtitle">
+            Votre partenaire de confiance pour la création et le développement de votre site web
+        </p>
+        
+        <div class="hero-buttons">
+            <a href="#services" class="cta-button primary nav-link" data-target="services">Découvrir Nos Services</a>
+            <a href="#contact" class="cta-button primary open-modal-btn">Nous Contacter</a>
+        </div>
+    </div>
 
-                    <div class="example-card">
-                        <a href="https://agbalaolivier.github.io/souvenirs_vacances/" target="_blank">
-                            <img src="assets/images/app_logo-souvenirs-vacances.jpg" alt="app-logo-souvenirs-vacances">
-                        </a>
-                        <h4>Souvenirs_Vacances</h4>
-                        <p>Une application d'édition de cartes de souvenirs de vacances, à partager avec vos proches.</p>
-                    </div>
-                    <div class="example-card">
-                        <a href="https://agbalaolivier.github.io/bouki/" target="_blank">
-                            <img src="assets/images/aw-creative.jpg" alt="logo-gameOne">
-                        </a>
-                        <h4>Bouki</h4>
-                        <p>Un site de recherche d'hébergement pour vos vacances de rêve.</p>
-                    </div>
-                    <div class="example-card">
-                        <a href="https://agbalaolivier.github.io/ohmyfood/" target="_blank">
-                            <img src="assets/images/image.jpg" alt="plat-restorant">
-                        </a>
-                        <h4>Ohmyfood</h4>
-                        <p>Un site de restauration où on peut commander son plat en ligne selon sa composition.</p>
-                    </div>
-                    <div class="example-card">
-                        <a href="https://agbalaolivier.github.io/Front-End-Fisheye/" target="_blank">
-                            <img src="assets/images/Architecture_Dome.jpg" alt="site pour des photographes">
-                        </a>
-                        <h4>Front-End-Fisheye</h4>
-                        <p>Un site idéal pour les photographes. Répertoriant les œuvres, propositions de travail et prix des prestations.</p>
-                    </div>
-                </div>
+    <div class="examples">
+        <h2>Exemples de sites créés</h2>
+        <div class="examples-grid">
+            <div class="example-card">
+                <a href="https://agbalaolivier.github.io/souvenirs_vacances/" target="_blank">
+                    <img src="assets/images/app_logo-souvenirs-vacances.jpg" alt="Souvenirs Vacances">
+                </a>
+                <h4>Souvenirs_Vacances</h4>
+                <p>Une application d'édition de cartes de souvenirs de vacances, à partager avec vos proches.</p>
             </div>
-        </section>
+            <div class="example-card">
+                <a href="https://agbalaolivier.github.io/bouki/" target="_blank">
+                    <img src="assets/images/aw-creative.jpg" alt="Bouki">
+                </a>
+                <h4>Bouki</h4>
+                <p>Un site de recherche d'hébergement pour vos vacances de rêve.</p>
+            </div>
+            <div class="example-card">
+                <a href="https://agbalaolivier.github.io/ohmyfood/" target="_blank">
+                    <img src="assets/images/image.jpg" alt="Ohmyfood">
+                </a>
+                <h4>Ohmyfood</h4>
+                <p>Un site de restauration où on peut commander son plat en ligne selon sa composition.</p>
+            </div>
+            <div class="example-card">
+                <a href="https://agbalaolivier.github.io/Front-End-Fisheye/" target="_blank">
+                    <img src="assets/images/Architecture_Dome.jpg" alt="Fisheye">
+                </a>
+                <h4>Front-End-Fisheye</h4>
+                <p>Un site idéal pour les photographes répertoriant œuvres et prestations.</p>
+            </div>
+        </div>
+    </div>
+</section>
+        
 
         <!-- Section Services -->
         <section id="services" class="services section-content">
@@ -148,16 +157,6 @@
         <!-- Section Contact -->
         <section id="contact" class="contact section-content">
             <h2>Contactez-nous</h2>
-            <div class="director-photo">
-                <img src="assets/images/moi1.jpg" alt="director-photo-style">
-                <p class="director-title">Gérant de Waka'Company</p>
-                <p>Développeur web indépendant, je conçois des sites et applications web sur mesure, alliant performance, design moderne et expérience utilisateur fluide.</p>
-                <p class="director-phone"><i class="fa-solid fa-phone"></i> 06-51-62-82-69</p>
-                <p class="director-email"><i class="fa-solid fa-envelope"></i> ronniking99@gmail.com</p>
-            </div>
-            
-           
-
             <div class="newsletter">
                 <h2>Inscrivez-vous à notre Newsletter</h2>
                 <form id="newsletter-form">
@@ -166,6 +165,16 @@
                 </form>
             </div>
         </section>
+        <section class="director-section">
+         <div class="director-photo">
+                <img src="assets/images/moi1.jpg" alt="director-photo-style">
+                <p class="director-title">Gérant de Waka'Company</p>
+                <p>Développeur web indépendant, je conçois des sites et applications web sur mesure, alliant performance, design moderne et expérience utilisateur fluide.</p>
+                <p class="director-phone"><i class="fa-solid fa-phone"></i>+33 06-51-62-82-69</p>
+                <p class="director-email"><i class="fa-solid fa-envelope"></i> ronniking99@gmail.com</p>
+            </div>
+        </section>
+            
     </main>
 
     <!-- BOÎTE MODALE INTÉGRÉE -->
