@@ -34,6 +34,14 @@
                 <li><a href="#contact" class="open-modal-btn">Contactez-nous</a></li>
             </ul>
         </nav>
+        <!-- SDK EmailJS -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script type="text/javascript">
+      (function(){
+         // Remplace "VOTRE_PUBLIC_KEY" par ta clé publique EmailJS
+         emailjs.init("ycxVpyJoNcogYWwHY");
+      })();
+    </script>
     </header>
 
     <main>
@@ -161,9 +169,12 @@
     </main>
 
     <!-- BOÎTE MODALE INTÉGRÉE -->
-    <div class="modal">
-        <div class="modal-content">
-            <span class="close-modal">&times;</span>
+<div class="modal">
+    <div class="modal-content">
+        <span class="close-modal">&times;</span>
+        
+        <!-- Bloc du formulaire -->
+        <div id="modal-form-container">
             <h2>Demande de devis / Contact</h2>
             <form id="modal-form">
                 <div class="form-group">
@@ -178,12 +189,16 @@
                 <button type="submit" class="submit-btn">Envoyer la demande</button>
             </form>
         </div>
+
+        <!-- Bloc du message de succès -->
         <div id="modal-success-message" style="display: none; text-align: center; padding: 20px;">
             <i class="fa-solid fa-circle-check" style="color: #28a748; font-size: 3rem; margin-bottom: 15px;"></i>
             <h2 id="success-title">Merci !</h2>
             <p id="success-text">Votre message a bien été envoyé.</p>
         </div>
     </div>
+</div>
+    
 
     <footer class="main-footer">
         <p>&copy; 2024 Waka'Company. Tous droits réservés.</p>
