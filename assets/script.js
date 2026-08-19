@@ -13,6 +13,7 @@ document.addEventListener("DOMContentLoaded", function() {
     // Formulaires
     const contactForm = document.getElementById('contact-form');
     const modalForm = document.getElementById('modal-form');
+    const phoneInput = document.querySelector("#modal-phone");
     const newsletterForm = document.getElementById('newsletter-form');
     
     // Éléments de la Modale
@@ -179,6 +180,26 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         });
     }
+    // --- DÉBUT BLOC INDICATIF TÉLÉPHONE ---
+let iti = null;
+if (phoneInput && typeof window.intlTelInput !== 'undefined') {
+    iti = window.intlTelInput(phoneInput, {
+        initialCountry: "fr",
+        preferredCountries: ["fr", "be", "ch", "ca", "ci", "sn"],
+        nationalMode: false,
+        utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/js/utils.js"
+    });
+}
+
+// Formatage du numéro complet au format international (+33...) lors de la soumission
+if (modalForm) {
+    modalForm.addEventListener('submit', () => {
+        if (iti && phoneInput) {
+            phoneInput.value = iti.getNumber();
+        }
+    });
+}
+// --- FIN BLOC INDICATIF TÉLÉPHONE ---
 
     // ----------------------------------------------------
     // 6. AFFICHAGE TOGGLE FLYS

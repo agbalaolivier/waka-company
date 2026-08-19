@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Waka'Company</title>
-    
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/css/intlTelInput.css">
     <link rel="stylesheet" href="css/style.css">
     <script src="https://kit.fontawesome.com/97cf61b80d.js" crossorigin="anonymous"></script>
 </head>
@@ -187,11 +188,14 @@
             <h2>Demande de devis / Contact</h2>
             <form id="modal-form">
                 <div class="form-group">
-                    <input type="text" id="modal-name" name="name" required placeholder="Votre nom">
+                    <input type="text" id="modal-name" name="name" required placeholder="Nom et Prénom">
                 </div>
                 <div class="form-group">
                     <input type="email" id="modal-email" name="email" required placeholder="Votre email">
                 </div>
+                <div class="form-group">
+                    <input type="tel" id="modal-phone" name="phone" class="phone-input" required placeholder="Votre numéro de téléphone">
+        </div>
                 <div class="form-group">
                     <textarea id="modal-message" name="message" required placeholder="Détaillez votre projet..."></textarea>
                 </div>
@@ -212,7 +216,9 @@
     <footer class="main-footer">
         <p>&copy; 2024 Waka'Company. Tous droits réservés.</p>
     </footer>
-    
+
+    <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/js/intlTelInput.min.js"></script>
     <script src="assets/script.js"></script>
+    
 </body>
 </html>

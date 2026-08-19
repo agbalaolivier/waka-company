@@ -731,6 +731,15 @@ main {
 .close-modal:hover {
     color: var(--burgundy);
 }
+.iti {
+    width: 100%;
+}
+
+.iti__country-list {
+    color: var(--text-dark);
+    border-radius: 10px;
+    box-shadow: var(--shadow-md);
+}
 
 /* ==========================================================================
    12. FOOTER
