@@ -114,6 +114,10 @@ document.addEventListener("DOMContentLoaded", function() {
         formElement.addEventListener('submit', function(event) {
             event.preventDefault();
 
+            if (formElement === modalForm && iti && phoneInput) {
+                phoneInput.value = iti.getNumber();
+            }
+
             const formData = new FormData(formElement);
             const data = Object.fromEntries(formData.entries());
             const clientName = data.name || 'Cher client';
@@ -187,19 +191,11 @@ if (phoneInput && typeof window.intlTelInput !== 'undefined') {
         initialCountry: "fr",
         preferredCountries: ["fr", "be", "ch", "ca", "ci", "sn"],
         nationalMode: false,
-        useFullscreenPopup: true, // Ouvre une fenêtre plein écran propre sur smartphone
-        utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/js/utils.js"
+        useFullscreenPopup: false, 
+        utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@19.5.6/build/js/utils.js"
     });
 }
 
-// Formatage du numéro complet au format international (+33...) lors de la soumission
-if (modalForm) {
-    modalForm.addEventListener('submit', () => {
-        if (iti && phoneInput) {
-            phoneInput.value = iti.getNumber();
-        }
-    });
-}
 // --- FIN BLOC INDICATIF TÉLÉPHONE ---
 
     // ----------------------------------------------------

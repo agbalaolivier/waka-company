@@ -714,9 +714,13 @@ main {
     border-radius: 10px;
     box-shadow: var(--shadow-md);
     z-index: 99999 !important; /* Force le menu à passer devant la modale */
-    max-height: 200px !important; /* Limite la hauteur sur petit écran */
     overflow-y: auto !important;
     white-space: normal !important;
+}
+
+/* Le popup mobile gère lui-même sa hauteur et son défilement. */
+.iti--fullscreen-popup .iti__country-list {
+    max-height: none !important;
 }
 /* Autorise le menu déroulant à dépasser de la modale si nécessaire */
 #modal-form-container,
