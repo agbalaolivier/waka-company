@@ -180,10 +180,10 @@ p {
 }
 
 .logo-img {
-    height: 5rem;
+    height: 8rem;
     width: auto;
     object-fit: contain;
-    border-radius: 10px;
+    border-radius: 20px;
     filter: none !important; 
     transition: transform 0.3s ease;
     background-color: #ffffff;
