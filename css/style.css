@@ -700,6 +700,29 @@ main {
     min-height: 120px;
     resize: vertical;
 }
+.iti {
+    width: 100%;
+    display: block;
+}
+.iti input[type="tel"] {
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+.iti__country-list {
+    color: var(--text-dark);
+    border-radius: 10px;
+    box-shadow: var(--shadow-md);
+    z-index: 99999 !important; /* Force le menu à passer devant la modale */
+    max-height: 200px !important; /* Limite la hauteur sur petit écran */
+    overflow-y: auto !important;
+    white-space: normal !important;
+}
+/* Autorise le menu déroulant à dépasser de la modale si nécessaire */
+#modal-form-container,
+.modal-content {
+    overflow: visible !important;
+}
 
 .submit-btn {
     width: 100%;
@@ -731,15 +754,7 @@ main {
 .close-modal:hover {
     color: var(--burgundy);
 }
-.iti {
-    width: 100%;
-}
 
-.iti__country-list {
-    color: var(--text-dark);
-    border-radius: 10px;
-    box-shadow: var(--shadow-md);
-}
 
 /* ==========================================================================
    12. FOOTER

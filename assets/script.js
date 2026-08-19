@@ -187,6 +187,7 @@ if (phoneInput && typeof window.intlTelInput !== 'undefined') {
         initialCountry: "fr",
         preferredCountries: ["fr", "be", "ch", "ca", "ci", "sn"],
         nationalMode: false,
+        
         utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/js/utils.js"
     });
 }
