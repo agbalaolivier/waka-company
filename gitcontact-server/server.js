@@ -14,24 +14,17 @@ const port = process.env.PORT || 3000;
 app.use(cors({ origin: '*' }));
 app.use(helmet({ contentSecurityPolicy: false }));
 
-// Support des données envoyées en JSON et en Formular (URL Encoded)
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// Fichiers statiques
 app.use(express.static(path.join(__dirname, '../')));
 
-// Config Transporter Nodemailer unique
+// CONFIGURATION TRANSPORTER (Correction timeout Render avec service: 'gmail')
 const transporter = nodemailer.createTransport({
-    host: 'smtp.gmail.com',
-    port: 587,
-    secure: false,
+    service: 'gmail',
     auth: {
         user: process.env.EMAIL,
         pass: process.env.APP_PASSWORD
-    },
-    tls: {
-        rejectUnauthorized: false
     }
 });
 
@@ -64,48 +57,51 @@ app.post('/api/contact', (req, res) => {
     transporter.sendMail(mailOptions, (error) => {
         if (error) {
             console.error('Erreur Nodemailer Contact:', error);
-            return res.status(500).send('Erreur lors de l envoi de l email.');
+            return res.status(500).send(`Erreur lors de l'envoi : ${error.message}`);
         }
         res.status(200).send('Message envoyé avec succès !');
     });
 });
 
-// ROUTE API QUESTIONNAIRE (Placée AVANT app.listen)
+// ROUTE API QUESTIONNAIRE
 app.post('/api/questionnaire', (req, res) => {
-    const projectTitle = String(req.body.project_title || '').trim();
+    try {
+        const projectTitle = String(req.body.project_title || '').trim();
 
-    if (!projectTitle) {
-        return res.status(400).send('Le nom du projet est requis.');
-    }
-
-    const answers = Object.entries(req.body)
-        .filter(([fieldName]) => fieldName !== 'project_title')
-        .map(([fieldName, value]) => `${fieldName}: ${xss(String(value || '').trim() || 'Non renseigné')}`)
-        .join('\n\n');
-
-    const mailOptions = {
-        from: process.env.EMAIL,
-        to: process.env.EMAIL,
-        subject: `Nouveau questionnaire : ${xss(projectTitle)}`,
-        text: `Projet : ${xss(projectTitle)}\n\nDÉTAILS DES RÉPONSES :\n-------------------\n${answers}`
-    };
-
-    transporter.sendMail(mailOptions, (error) => {
-        if (error) {
-            console.error('Erreur Nodemailer Questionnaire:', error);
-            return res.status(500).send("Erreur lors de l'envoi du questionnaire.");
+        if (!projectTitle) {
+            return res.status(400).send('Le nom du projet est requis.');
         }
-        res.status(200).send('Questionnaire envoyé avec succès.');
-    });
+
+        const answers = Object.entries(req.body)
+            .filter(([fieldName]) => fieldName !== 'project_title')
+            .map(([fieldName, value]) => `${fieldName}: ${xss(String(value || '').trim() || 'Non renseigné')}`)
+            .join('\n\n');
+
+        const mailOptions = {
+            from: process.env.EMAIL,
+            to: process.env.EMAIL,
+            subject: `Nouveau questionnaire : ${xss(projectTitle)}`,
+            text: `Projet : ${xss(projectTitle)}\n\nDÉTAILS DES RÉPONSES :\n-------------------\n${answers}`
+        };
+
+        transporter.sendMail(mailOptions, (error) => {
+            if (error) {
+                console.error('Erreur Nodemailer Questionnaire:', error);
+                return res.status(500).send(`Erreur d'envoi mail : ${error.message}`);
+            }
+            res.status(200).send('Questionnaire envoyé avec succès.');
+        });
+    } catch (err) {
+        console.error('Erreur serveur interne :', err);
+        res.status(500).send(`Erreur traitement : ${err.message}`);
+    }
 });
 
-// Middleware pour gérer les erreurs
 app.use((err, req, res, next) => {
     console.error(err.stack);
     res.status(500).send('Quelque chose a mal tourné !');
 });
 
-// DÉMARRAGE DU SERVEUR (En toute fin de fichier)
 app.listen(port, () => {
     console.log(`Serveur en écoute sur le port ${port}`);
 });
