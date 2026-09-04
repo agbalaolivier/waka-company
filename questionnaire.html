@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadrage de Projet - Waka's Company</title>
+    <style>
+        :root {
+            --primary-blue: #0056b3;
+            --accent-blue: #007bff;
+            --header-bg: #f8f9fa;
+            --text-dark: #212529;
+            --bg-light: #f4f6f9;
+            --border-color: #ced4da;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: var(--primary-blue);
+            border-bottom: 2px solid #003d80;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .site-name {
+            color: #ffffff;
+            font-size: 1.35rem;
+            font-weight: 800;
+        }
+
+        .logo-image {
+            display: block;
+            width: 170px;
+            height: auto;
+            max-width: 100%;
+            border-radius: 8px;
+        }
+
+        .site-link a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+        }
+
+        .site-link a:hover {
+            text-decoration: underline;
+            color: #dbeafe;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 2rem auto;
+            background: #ffffff;
+            padding: 2.5rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        h1 {
+            color: var(--primary-blue);
+            margin-bottom: 0.5rem;
+            font-size: 1.8rem;
+        }
+
+        p.intro {
+            margin-bottom: 2rem;
+            color: #6c757d;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
+        }
+
+        input[type="text"],
+        input[type="email"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-size: 1rem;
+            font-family: inherit;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.15);
+        }
+
+        .section-title {
+            font-size: 1.3rem;
+            color: var(--primary-blue);
+            border-bottom: 2px solid var(--bg-light);
+            padding-bottom: 0.5rem;
+            margin: 2rem 0 1.2rem 0;
+        }
+
+        .btn-submit {
+            background-color: var(--primary-blue);
+            color: #fff;
+            border: none;
+            padding: 0.85rem 2rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            width: 100%;
+        }
+
+        .btn-submit:hover {
+            background-color: #004085;
+        }
+
+        .actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.75rem;
+            margin-top: 2rem;
+        }
+
+        .blank-download {
+            grid-column: 1 / -1;
+        }
+
+        .btn-secondary {
+            background-color: #ffffff;
+            color: var(--primary-blue);
+            border: 1px solid var(--primary-blue);
+            padding: 0.85rem 1rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .btn-secondary:hover {
+            background-color: #eef5ff;
+        }
+
+        @media (max-width: 600px) {
+            header {
+                padding: 1rem;
+                gap: 1rem;
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .container {
+                margin: 1rem;
+                padding: 1.5rem;
+            }
+
+            .logo-image {
+                width: 150px;
+            }
+
+            .actions {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media print {
+            body {
+                background: #ffffff;
+            }
+
+            footer, .actions {
+                display: none;
+            }
+
+            header {
+                display: flex;
+                margin-bottom: 1.5rem;
+                padding: 1rem 0;
+                box-shadow: none;
+            }
+
+            .container {
+                max-width: none;
+                margin: 0;
+                padding: 0;
+                box-shadow: none;
+            }
+        }
+
+        footer {
+            text-align: center;
+            padding: 1.5rem;
+            color: #6c757d;
+            font-size: 0.9rem;
+            margin-top: 2rem;
+        }
+
+        footer a {
+            color: var(--accent-blue);
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo-container">
+            <img class="logo-image" src="assets/images/logo.png" alt="Waka's Company">
+            <span class="site-name">Waka's Company</span>
+        </div>
+        <div class="site-link">
+            <a href="https://waka-company.onrender.com" target="_blank" rel="noopener noreferrer">waka-company.onrender.com ↗</a>
+        </div>
+    </header>
+
+    <div class="container">
+        <h1>Questionnaire de Cadrage</h1>
+        <p class="intro">Vos réponses nous aideront à définir précisément votre site, son contenu et ses fonctionnalités.</p>
+
+        <form id="questionnaire-form">
+
+            <div class="section-title">1. Présentation &amp; Objectifs</div>
+
+            <div class="form-group">
+                <label for="project-title">Nom du projet ou de l'entreprise</label>
+                <input type="text" id="project-title" name="project_title" placeholder="Ex : Waka's Company" required>
+            </div>
+
+            <div class="form-group">
+                <label for="question-1-1">1.1. Quelle est l'activité principale de votre entreprise et quels sont vos produits/services ?</label>
+                <textarea id="question-1-1" name="question_1_1" placeholder="Décrivez votre activité, vos produits ou vos services..."></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="question-1-2">1.2. Quel est l'objectif principal du site ?</label>
+                <textarea id="question-1-2" name="question_1_2" placeholder="Ex : vente en ligne, génération de devis/leads, vitrine d'entreprise..."></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="question-1-3">1.3. Quels sont vos objectifs chiffrés à moyen terme ?</label>
+                <textarea id="question-1-3" name="question_1_3" placeholder="Ex : nombre de visiteurs, demandes de contact par mois, ventes..."></textarea>
+            </div>
+
+            <div class="section-title">2. Cible &amp; Positionnement</div>
+
+            <div class="form-group">
+                <label for="question-2-1">2.1. Qui est votre client idéal / cible principale ?</label>
+                <textarea id="question-2-1" name="question_2_1" placeholder="Profil, âge, secteur d'activité, besoins spécifiques..."></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="question-2-2">2.2. Quels sont vos principaux concurrents ?</label>
+                <textarea id="question-2-2" name="question_2_2" placeholder="Indiquez 2 ou 3 liens web si possible..."></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="question-2-3">2.3. Qu'est-ce qui vous distingue clairement de vos concurrents ?</label>
+                <textarea id="question-2-3" name="question_2_3" placeholder="Valeur ajoutée, engagement, expertise..."></textarea>
+            </div>
+
+            <div class="section-title">3. Contenu &amp; Arborescence</div>
+
+            <div class="form-group">
+                <label for="question-3-1">3.1. Quelles sont les pages principales à prévoir ?</label>
+                <textarea id="question-3-1" name="question_3_1" placeholder="Ex : Accueil, À propos, Services, Boutique, Blog, Contact..."></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="question-3-2">3.2. Avez-vous déjà rédigé les textes et réuni les visuels ?</label>
+                <textarea id="question-3-2" name="question_3_2" placeholder="Précisez les contenus déjà disponibles : textes, photos, vidéos, logos..."></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="question-3-3">3.3. Le site doit-il être multilingue ?</label>
+                <textarea id="question-3-3" name="question_3_3" placeholder="Si oui, indiquez les langues souhaitées..."></textarea>
+            </div>
+
+            <div class="section-title">4. Design &amp; Identité Visuelle</div>
+
+            <div class="form-group">
+                <label for="question-4-1">4.1. Disposez-vous d'une charte graphique existante ?</label>
+                <textarea id="question-4-1" name="question_4_1" placeholder="Logo vectoriel, couleurs, typographies. Indiquez si vous souhaitez la conserver ou en créer une nouvelle..."></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="question-4-2">4.2. Citez 2 ou 3 sites dont vous aimez le style visuel ou l'ergonomie.</label>
+                <textarea id="question-4-2" name="question_4_2" placeholder="Ajoutez les liens et précisez ce qui vous plaît sur chaque site..."></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="question-4-3">4.3. Quels sont les styles, ambiances ou couleurs à éviter absolument ?</label>
+                <textarea id="question-4-3" name="question_4_3" placeholder="Décrivez vos préférences et vos interdits visuels..."></textarea>
+            </div>
+
+            <div class="section-title">5. Fonctionnalités &amp; Technique</div>
+
+            <div class="form-group">
+                <label for="question-5-1">5.1. De quelles fonctionnalités spécifiques avez-vous besoin ?</label>
+                <textarea id="question-5-1" name="question_5_1" placeholder="Ex : réservation, paiement, espace membre, devis en ligne..."></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="question-5-2">5.2. Possédez-vous déjà un nom de domaine et un hébergement web ?</label>
+                <textarea id="question-5-2" name="question_5_2" placeholder="Indiquez les éléments déjà disponibles ou vos besoins..."></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="question-5-3">5.3. Le site doit-il être connecté à des outils externes ?</label>
+                <textarea id="question-5-3" name="question_5_3" placeholder="Ex : CRM, newsletter, ERP, logiciel de caisse..."></textarea>
+            </div>
+
+            <div class="section-title">6. Budget, Calendrier &amp; Maintenance</div>
+
+            <div class="form-group">
+                <label for="question-6-1">6.1. Quelle est la date de livraison idéalement souhaitée pour le site ?</label>
+                <textarea id="question-6-1" name="question_6_1" placeholder="Indiquez une date ou une période souhaitée..."></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="question-6-2">6.2. Quel est le budget estimatif ou alloué à ce projet ?</label>
+                <textarea id="question-6-2" name="question_6_2" placeholder="Indiquez une fourchette ou un budget précis..."></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="question-6-3">6.3. Souhaitez-vous gérer la maintenance vous-même ou souscrire un suivi ?</label>
+                <textarea id="question-6-3" name="question_6_3" placeholder="Précisez votre préférence pour la maintenance et les mises à jour..."></textarea>
+            </div>
+
+            <div class="actions">
+                <button type="button" id="download-button" class="btn-submit">Télécharger mes réponses</button>
+                <button type="button" id="print-button" class="btn-secondary">Imprimer / enregistrer en PDF</button>
+                <button type="button" id="blank-button" class="btn-secondary blank-download">Télécharger le document vierge</button>
+            </div>
+        </form>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Waka's Company. Visitez notre site : <a href="https://waka-company.onrender.com" target="_blank" rel="noopener noreferrer">waka-company.onrender.com</a></p>
+    </footer>
+
+</body>
+<script>
+    const form = document.getElementById('questionnaire-form');
+    const downloadButton = document.getElementById('download-button');
+    const printButton = document.getElementById('print-button');
+    const blankButton = document.getElementById('blank-button');
+
+    downloadButton.addEventListener('click', () => {
+        if (!form.reportValidity()) {
+            return;
+        }
+
+        const lines = ['QUESTIONNAIRE DE CADRAGE', 'Waka\'s Company', ''];
+        const fields = form.querySelectorAll('input[name], textarea[name], select[name]');
+
+        fields.forEach((field) => {
+            const label = form.querySelector(`label[for="${field.id}"]`);
+            const value = field.value.trim() || 'Non renseigné';
+
+            if (label) {
+                lines.push(`${label.textContent.trim()}\n${value}`, '');
+            }
+        });
+
+        const fileContent = lines.join('\n');
+        const file = new Blob([fileContent], { type: 'text/plain;charset=utf-8' });
+        const link = document.createElement('a');
+        const projectTitle = form.project_title.value.trim()
+            .replace(/[^a-z0-9]+/gi, '-')
+            .replace(/^-|-$/g, '')
+            .toLowerCase();
+
+        link.href = URL.createObjectURL(file);
+        link.download = `questionnaire-${projectTitle || 'projet'}.txt`;
+        link.click();
+        URL.revokeObjectURL(link.href);
+    });
+
+    printButton.addEventListener('click', () => {
+        if (form.reportValidity()) {
+            window.print();
+        }
+    });
+
+    blankButton.addEventListener('click', () => {
+        const fields = form.querySelectorAll('input[name], textarea[name], select[name]');
+        const savedValues = Array.from(fields, (field) => field.value);
+
+        fields.forEach((field) => {
+            field.value = '';
+        });
+
+        const restoreValues = () => {
+            fields.forEach((field, index) => {
+                field.value = savedValues[index];
+            });
+            window.removeEventListener('afterprint', restoreValues);
+        };
+
+        window.addEventListener('afterprint', restoreValues);
+        window.print();
+    });
+</script>
+</html>
