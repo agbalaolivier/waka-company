@@ -19,12 +19,20 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(express.static(path.join(__dirname, '../')));
 
-// CONFIGURATION TRANSPORTER (Correction timeout Render avec service: 'gmail')
+// Gmail SMTP utilise STARTTLS sur le port 587.
 const transporter = nodemailer.createTransport({
-    service: 'gmail',
+    host: process.env.SMTP_HOST || 'smtp.gmail.com',
+    port: Number(process.env.SMTP_PORT || 587),
+    secure: process.env.SMTP_SECURE === 'true',
+    requireTLS: true,
     auth: {
         user: process.env.EMAIL,
         pass: process.env.APP_PASSWORD
+    },
+    tls: {
+        // Laisser la validation active en production. Désactiver uniquement
+        // pour diagnostiquer un certificat intercepté par un antivirus/proxy.
+        rejectUnauthorized: process.env.SMTP_TLS_REJECT_UNAUTHORIZED !== 'false'
     }
 });
 

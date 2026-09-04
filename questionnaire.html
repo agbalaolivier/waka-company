@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadrage de Projet - Waka's Company</title>
+    <title>Questionnaire de Projet - Waka's Company</title>
     <style>
         :root {
             --primary-blue: #0056b3;
@@ -248,19 +248,16 @@
     </header>
 
     <div class="container">
-        <h1>Questionnaire de Cadrage</h1>
+        <h1>Questionnaire de Projet</h1>
         <p class="intro">Vos réponses nous aideront à définir précisément votre site, son contenu et ses fonctionnalités.</p>
 
-        <form id="questionnaire-form" action="https://formsubmit.co/ronniking99@gmail.com" method="POST" accept-charset="UTF-8">
-            <input type="hidden" name="_subject" value="Nouveau questionnaire de cadrage">
-            <input type="hidden" name="_template" value="table">
-            <input type="hidden" name="_captcha" value="false">
-            <input type="hidden" name="_next" value="https://waka-company.onrender.com/questionnaire.html?envoye=1">
+        <!-- Formulaire nettoyé : redirection directe vers l'API Express -->
+        <form id="questionnaire-form">
 
             <div class="section-title">1. Présentation &amp; Objectifs</div>
 
             <div class="form-group">
-                <label for="project-title">Nom du projet ou de l'entreprise</label>
+                <label for="project-title">Nom du projet ou de l'entreprise *</label>
                 <input type="text" id="project-title" name="project_title" placeholder="Ex : Waka's Company" required>
             </div>
 
@@ -317,12 +314,12 @@
 
             <div class="form-group">
                 <label for="question-4-1">4.1. Disposez-vous d'une charte graphique existante ?</label>
-                <textarea id="question-4-1" name="question_4_1" placeholder="Logo vectoriel, couleurs, typographies. Indiquez si vous souhaitez la conserver ou en créer une nouvelle..."></textarea>
+                <textarea id="question-4-1" name="question_4_1" placeholder="Logo vectoriel, couleurs, typographies..."></textarea>
             </div>
 
             <div class="form-group">
                 <label for="question-4-2">4.2. Citez 2 ou 3 sites dont vous aimez le style visuel ou l'ergonomie.</label>
-                <textarea id="question-4-2" name="question_4_2" placeholder="Ajoutez les liens et précisez ce qui vous plaît sur chaque site..."></textarea>
+                <textarea id="question-4-2" name="question_4_2" placeholder="Ajoutez les liens et précisez ce qui vous plaît..."></textarea>
             </div>
 
             <div class="form-group">
@@ -344,7 +341,7 @@
 
             <div class="form-group">
                 <label for="question-5-3">5.3. Le site doit-il être connecté à des outils externes ?</label>
-                <textarea id="question-5-3" name="question_5_3" placeholder="Ex : CRM, newsletter, ERP, logiciel de caisse..."></textarea>
+                <textarea id="question-5-3" name="question_5_3" placeholder="Ex : CRM, newsletter, ERP..."></textarea>
             </div>
 
             <div class="section-title">6. Budget, Calendrier &amp; Maintenance</div>
@@ -361,13 +358,13 @@
 
             <div class="form-group">
                 <label for="question-6-3">6.3. Souhaitez-vous gérer la maintenance vous-même ou souscrire un suivi ?</label>
-                <textarea id="question-6-3" name="question_6_3" placeholder="Précisez votre préférence pour la maintenance et les mises à jour..."></textarea>
+                <textarea id="question-6-3" name="question_6_3" placeholder="Précisez votre préférence..."></textarea>
             </div>
 
             <div class="actions">
-                <button type="button" id="download-button" class="btn-submit">Télécharger mes réponses</button>
-                <button type="submit" class="btn-secondary">Soumettre le questionnaire</button>
-                <button type="button" id="blank-button" class="btn-secondary blank-download">Télécharger le document vierge</button>
+                <button type="button" id="download-button" class="btn-secondary">Télécharger mes réponses en PDF</button>
+                <button type="submit" id="submit-button" class="btn-submit">Soumettre le questionnaire</button>
+                <button type="button" id="blank-button" class="btn-secondary blank-download">Imprimer le document vierge en PDF</button>
             </div>
         </form>
     </div>
@@ -376,37 +373,74 @@
         <p>&copy; 2026 Waka's Company. Visitez notre site : <a href="https://waka-company.onrender.com" target="_blank" rel="noopener noreferrer">waka-company.onrender.com</a></p>
     </footer>
 
-</body>
-<script>
-   const form = document.getElementById('questionnaire-form');
+    <script>
+        const form = document.getElementById('questionnaire-form');
+        const downloadButton = document.getElementById('download-button');
+        const blankButton = document.getElementById('blank-button');
+        const submitButton = document.getElementById('submit-button');
 
+        // Impression / Téléchargement PDF
+        function printQuestionnaire(blankDocument) {
+            if (!blankDocument && !form.reportValidity()) return;
 
-form.addEventListener('submit', async (e) => {
-    e.preventDefault();
+            const fields = Array.from(form.querySelectorAll('input[name], textarea[name], select[name]'));
+            const savedValues = fields.map((field) => field.value);
+            const savedTitle = document.title;
+            const projectTitle = form.elements.project_title.value.trim();
 
-    const formData = new FormData(form);
-    const data = Object.fromEntries(formData.entries());
+            if (blankDocument) {
+                fields.forEach((field) => { field.value = ''; });
+                document.title = 'Questionnaire vierge - Waka Company';
+            } else {
+                document.title = `Questionnaire - ${projectTitle || 'Projet'}`;
+            }
 
-    try {
-        const response = await fetch('/api/questionnaire', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
-        });
+            const restoreDocument = () => {
+                fields.forEach((field, index) => { field.value = savedValues[index]; });
+                document.title = savedTitle;
+                window.removeEventListener('afterprint', restoreDocument);
+            };
 
-        if (response.ok) {
-            alert('Questionnaire transmis avec succès à Waka\'s Company !');
-            form.reset();
-        } else {
-            const errorMsg = await response.text();
-            alert('Erreur : ' + errorMsg);
+            window.addEventListener('afterprint', restoreDocument);
+            window.print();
         }
-    } catch (error) {
-        console.error('Erreur réseau :', error);
-        alert('Impossible de joindre le serveur.');
-    }
-});
-</script>
+
+        downloadButton.addEventListener('click', () => printQuestionnaire(false));
+        blankButton.addEventListener('click', () => printQuestionnaire(true));
+
+        // Envoi au serveur Express
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault();
+
+            submitButton.disabled = true;
+            submitButton.innerText = "Envoi en cours...";
+
+            const formData = new FormData(form);
+            const data = Object.fromEntries(formData.entries());
+
+            try {
+                const response = await fetch('/api/questionnaire', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+
+                const resultText = await response.text();
+
+                if (response.ok) {
+                    alert('Succès : Questionnaire transmis avec succès à Waka\'s Company !');
+                    form.reset();
+                } else {
+                    alert('Erreur du serveur : ' + resultText);
+                }
+            } catch (error) {
+                console.error('Erreur lors de la soumission :', error);
+                alert('Erreur réseau ou connexion impossible : ' + error.message);
+            } finally {
+                submitButton.disabled = false;
+                submitButton.innerText = "Soumettre le questionnaire";
+            }
+        });
+    </script>
+</body>
 </html>
