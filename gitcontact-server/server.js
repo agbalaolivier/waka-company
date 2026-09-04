@@ -1,4 +1,5 @@
-require('dotenv').config();
+const path = require('path');
+require('dotenv').config({ path: path.join(__dirname, '.env') });
 const express = require('express');
 const bodyParser = require('body-parser');
 const nodemailer = require('nodemailer');
@@ -6,7 +7,6 @@ const validator = require('validator');
 const helmet = require('helmet');
 const xss = require('xss');
 const cors = require('cors');
-const path = require('path'); // Nécessaire pour gérer les chemins de fichiers
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -21,6 +21,7 @@ app.use(helmet({
     contentSecurityPolicy: false // Évite de bloquer les scripts/styles locaux en production
 }));
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
 // 1. SERVIR LES FICHIERS STATIQUES (HTML, CSS, JS, IMAGES)
 // Indique à Express d'aller chercher les fichiers dans le dossier parent (racine du projet)
@@ -84,4 +85,42 @@ app.use((err, req, res, next) => {
 
 app.listen(port, () => {
     console.log(`Serveur en écoute sur le port ${port}`);
+});
+
+// ROUTE QUESTIONNAIRE
+app.post('/api/questionnaire', (req, res) => {
+    const projectTitle = String(req.body.project_title || '').trim();
+
+    if (!projectTitle) {
+        return res.status(400).send('Le nom du projet est requis.');
+    }
+
+    const answers = Object.entries(req.body)
+        .filter(([fieldName]) => fieldName !== 'project_title')
+        .map(([fieldName, value]) => `${fieldName}: ${xss(String(value || '').trim() || 'Non renseigné')}`)
+        .join('\n');
+
+    const transporter = nodemailer.createTransport({
+        host: 'smtp.gmail.com',
+        port: 587,
+        secure: false,
+        auth: {
+            user: process.env.EMAIL,
+            pass: process.env.APP_PASSWORD
+        }
+    });
+
+    transporter.sendMail({
+        from: process.env.EMAIL,
+        to: process.env.EMAIL,
+        subject: `Nouveau questionnaire : ${xss(projectTitle)}`,
+        text: `Projet : ${xss(projectTitle)}\n\n${answers}`
+    }, (error) => {
+        if (error) {
+            console.error('Erreur Nodemailer questionnaire:', error);
+            return res.status(500).send("Erreur lors de l'envoi du questionnaire.");
+        }
+
+        res.send('Questionnaire envoyé avec succès.');
+    });
 });
