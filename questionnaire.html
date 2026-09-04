@@ -374,58 +374,35 @@
 
 </body>
 <script>
-    const form = document.getElementById('questionnaire-form');
-    const downloadButton = document.getElementById('download-button');
-    const blankButton = document.getElementById('blank-button');
+   const form = document.getElementById('questionnaire-form');
 
-    downloadButton.addEventListener('click', () => {
-        if (!form.reportValidity()) {
-            return;
+
+form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(form);
+    const data = Object.fromEntries(formData.entries());
+
+    try {
+        const response = await fetch('/api/questionnaire', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        });
+
+        if (response.ok) {
+            alert('Questionnaire transmis avec succès à Waka\'s Company !');
+            form.reset();
+        } else {
+            const errorMsg = await response.text();
+            alert('Erreur : ' + errorMsg);
         }
-
-        const lines = ['QUESTIONNAIRE DE CADRAGE', 'Waka\'s Company', ''];
-        const fields = form.querySelectorAll('input[name], textarea[name], select[name]');
-
-        fields.forEach((field) => {
-            const label = form.querySelector(`label[for="${field.id}"]`);
-            const value = field.value.trim() || 'Non renseigné';
-
-            if (label) {
-                lines.push(`${label.textContent.trim()}\n${value}`, '');
-            }
-        });
-
-        const fileContent = lines.join('\n');
-        const file = new Blob([fileContent], { type: 'text/plain;charset=utf-8' });
-        const link = document.createElement('a');
-        const projectTitle = form.project_title.value.trim()
-            .replace(/[^a-z0-9]+/gi, '-')
-            .replace(/^-|-$/g, '')
-            .toLowerCase();
-
-        link.href = URL.createObjectURL(file);
-        link.download = `questionnaire-${projectTitle || 'projet'}.txt`;
-        link.click();
-        URL.revokeObjectURL(link.href);
-    });
-
-    blankButton.addEventListener('click', () => {
-        const fields = form.querySelectorAll('input[name], textarea[name], select[name]');
-        const savedValues = Array.from(fields, (field) => field.value);
-
-        fields.forEach((field) => {
-            field.value = '';
-        });
-
-        const restoreValues = () => {
-            fields.forEach((field, index) => {
-                field.value = savedValues[index];
-            });
-            window.removeEventListener('afterprint', restoreValues);
-        };
-
-        window.addEventListener('afterprint', restoreValues);
-        window.print();
-    });
+    } catch (error) {
+        console.error('Erreur réseau :', error);
+        alert('Impossible de joindre le serveur.');
+    }
+});
 </script>
 </html>
