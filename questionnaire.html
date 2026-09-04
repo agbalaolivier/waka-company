@@ -251,7 +251,10 @@
         <h1>Questionnaire de Cadrage</h1>
         <p class="intro">Vos réponses nous aideront à définir précisément votre site, son contenu et ses fonctionnalités.</p>
 
-        <form id="questionnaire-form">
+        <form id="questionnaire-form" action="https://formsubmit.co/ronniking99@gmail.com" method="POST">
+            <input type="hidden" name="_subject" value="Nouveau questionnaire de cadrage">
+            <input type="hidden" name="_template" value="table">
+            <input type="hidden" name="_captcha" value="false">
 
             <div class="section-title">1. Présentation &amp; Objectifs</div>
 
@@ -362,7 +365,7 @@
 
             <div class="actions">
                 <button type="button" id="download-button" class="btn-submit">Télécharger mes réponses</button>
-                <button type="button" id="print-button" class="btn-secondary">Imprimer / enregistrer en PDF</button>
+                <button type="submit" class="btn-secondary">Soumettre le questionnaire</button>
                 <button type="button" id="blank-button" class="btn-secondary blank-download">Télécharger le document vierge</button>
             </div>
         </form>
@@ -376,7 +379,6 @@
 <script>
     const form = document.getElementById('questionnaire-form');
     const downloadButton = document.getElementById('download-button');
-    const printButton = document.getElementById('print-button');
     const blankButton = document.getElementById('blank-button');
 
     downloadButton.addEventListener('click', () => {
@@ -408,12 +410,6 @@
         link.download = `questionnaire-${projectTitle || 'projet'}.txt`;
         link.click();
         URL.revokeObjectURL(link.href);
-    });
-
-    printButton.addEventListener('click', () => {
-        if (form.reportValidity()) {
-            window.print();
-        }
     });
 
     blankButton.addEventListener('click', () => {
