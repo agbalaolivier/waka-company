@@ -19,20 +19,27 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(express.static(path.join(__dirname, '../')));
 
-// Gmail SMTP utilise STARTTLS sur le port 587.
+// Configuration Gmail SMTP SSL sur le port 465 (Optimal pour Render)
+const smtpPort = Number(process.env.SMTP_PORT) || 465;
+const isSecure = process.env.SMTP_SECURE ? process.env.SMTP_SECURE === 'true' : smtpPort === 465;
+
 const transporter = nodemailer.createTransport({
     host: process.env.SMTP_HOST || 'smtp.gmail.com',
-    port: Number(process.env.SMTP_PORT || 587),
-    secure: process.env.SMTP_SECURE === 'true',
-    requireTLS: true,
+    port: smtpPort,
+    secure: isSecure, // true pour le port 465 (SSL)
     auth: {
         user: process.env.EMAIL,
         pass: process.env.APP_PASSWORD
     },
-    tls: {
-        // Laisser la validation active en production. Désactiver uniquement
-        // pour diagnostiquer un certificat intercepté par un antivirus/proxy.
-        rejectUnauthorized: process.env.SMTP_TLS_REJECT_UNAUTHORIZED !== 'false'
+    connectionTimeout: 10000 // Timeout de 10s pour éviter les blocages indéfinis
+});
+
+// Vérification de la connexion au démarrage (pour voir directement les erreurs dans Render)
+transporter.verify((error) => {
+    if (error) {
+        console.error('Erreur de connexion SMTP au démarrage :', error.message);
+    } else {
+        console.log('Serveur SMTP prêt à envoyer des emails');
     }
 });
 
