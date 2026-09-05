@@ -14,7 +14,7 @@ const port = process.env.PORT || 3000;
 app.use(cors({ origin: '*' }));
 app.use(helmet({ contentSecurityPolicy: false }));
 
-app.use(bodyParser.json());
+app.use(bodyParser.json({ limit: '15mb' }));
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(express.static(path.join(__dirname, '../')));
@@ -82,21 +82,27 @@ app.post('/api/contact', (req, res) => {
 app.post('/api/questionnaire', (req, res) => {
     try {
         const projectTitle = String(req.body.project_title || '').trim();
+        const pdfData = String(req.body.pdf || '');
 
-        if (!projectTitle) {
+        if (!projectTitle || !pdfData) {
             return res.status(400).send('Le nom du projet est requis.');
         }
 
-        const answers = Object.entries(req.body)
-            .filter(([fieldName]) => fieldName !== 'project_title')
-            .map(([fieldName, value]) => `${fieldName}: ${xss(String(value || '').trim() || 'Non renseigné')}`)
-            .join('\n\n');
+        const pdfBuffer = Buffer.from(pdfData, 'base64');
+        if (pdfBuffer.subarray(0, 4).toString() !== '%PDF') {
+            return res.status(400).send('Le fichier envoyé n’est pas un PDF valide.');
+        }
 
         const mailOptions = {
             from: process.env.EMAIL,
             to: process.env.EMAIL,
             subject: `Nouveau questionnaire : ${xss(projectTitle)}`,
-            text: `Projet : ${xss(projectTitle)}\n\nDÉTAILS DES RÉPONSES :\n-------------------\n${answers}`
+            text: `Questionnaire PDF reçu pour le projet : ${xss(projectTitle)}`,
+            attachments: [{
+                filename: `Questionnaire_${projectTitle.replace(/[^a-z0-9_-]+/gi, '_')}.pdf`,
+                content: pdfBuffer,
+                contentType: 'application/pdf'
+            }]
         };
 
         transporter.sendMail(mailOptions, (error) => {

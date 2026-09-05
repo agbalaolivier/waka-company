@@ -93,6 +93,8 @@
 
         .form-group {
             margin-bottom: 1.5rem;
+            break-inside: avoid;
+            page-break-inside: avoid;
         }
 
         label {
@@ -131,6 +133,8 @@
             border-bottom: 2px solid var(--bg-light);
             padding-bottom: 0.5rem;
             margin: 2rem 0 1.2rem 0;
+            break-after: avoid;
+            page-break-after: avoid;
         }
 
         .btn-submit {
@@ -233,6 +237,14 @@
         footer a {
             color: var(--accent-blue);
             text-decoration: none;
+        }
+
+        .pdf-export .actions {
+            display: none;
+        }
+
+        .pdf-export footer {
+            display: none;
         }
     </style>
 </head>
@@ -365,7 +377,7 @@
             <div class="actions">
                 <button type="button" id="download-button" class="btn-secondary">Télécharger mes réponses en PDF</button>
                 <button type="submit" id="submit-button" class="btn-submit">Soumettre le questionnaire</button>
-                <button type="button" id="blank-button" class="btn-secondary blank-download">Imprimer le document vierge en PDF</button>
+                <button type="button" id="blank-button" class="btn-secondary blank-download">Télécharger le document vierge en PDF</button>
             </div>
         </form>
     </div>
@@ -376,78 +388,79 @@
 
     <script>
         const form = document.getElementById('questionnaire-form');
-const downloadButton = document.getElementById('download-button');
-const blankButton = document.getElementById('blank-button');
-const submitButton = document.getElementById('submit-button');
+        const downloadButton = document.getElementById('download-button');
+        const blankButton = document.getElementById('blank-button');
+        const submitButton = document.getElementById('submit-button');
 
-// Fonction d'impression / téléchargement simple
-function printQuestionnaire(blankDocument) {
-    if (!blankDocument && !form.reportValidity()) return;
+        function printQuestionnaire(blankDocument) {
+            if (!blankDocument && !form.reportValidity()) return;
 
-    const fields = Array.from(form.querySelectorAll('input[name], textarea[name], select[name]'));
-    const savedValues = fields.map((field) => field.value);
-    const savedTitle = document.title;
-    const projectTitle = form.elements.project_title.value.trim();
+            const fields = Array.from(form.querySelectorAll('input[name], textarea[name], select[name]'));
+            const savedValues = fields.map((field) => field.value);
+            const savedTitle = document.title;
+            const projectTitle = form.elements.project_title.value.trim();
 
-    if (blankDocument) {
-        fields.forEach((field) => { field.value = ''; });
-        document.title = 'Questionnaire vierge - Waka Company';
-    } else {
-        document.title = `Questionnaire - ${projectTitle || 'Projet'}`;
-    }
+            if (blankDocument) {
+                fields.forEach((field) => { field.value = ''; });
+                document.title = 'Questionnaire vierge - Waka Company';
+            } else {
+                document.title = `Questionnaire - ${projectTitle || 'Projet'}`;
+            }
 
-    const restoreDocument = () => {
-        fields.forEach((field, index) => { field.value = savedValues[index]; });
-        document.title = savedTitle;
-        window.removeEventListener('afterprint', restoreDocument);
-    };
+            const restoreDocument = () => {
+                fields.forEach((field, index) => { field.value = savedValues[index]; });
+                document.title = savedTitle;
+                window.removeEventListener('afterprint', restoreDocument);
+            };
 
-    window.addEventListener('afterprint', restoreDocument);
-    window.print();
-}
+            window.addEventListener('afterprint', restoreDocument);
+            window.print();
+        }
 
-downloadButton.addEventListener('click', () => printQuestionnaire(false));
-blankButton.addEventListener('click', () => printQuestionnaire(true));
+        downloadButton.addEventListener('click', () => printQuestionnaire(false));
+        blankButton.addEventListener('click', () => printQuestionnaire(true));
 
-// Soumission : Génération PDF + Ouverture du logiciel mail du client
-form.addEventListener('submit', (event) => {
-    event.preventDefault();
+        form.addEventListener('submit', (event) => {
+            event.preventDefault();
 
-    if (!form.reportValidity()) return;
+            if (!form.reportValidity()) return;
 
-    submitButton.disabled = true;
-    submitButton.innerText = "Génération du PDF...";
+            submitButton.disabled = true;
+            submitButton.innerText = 'Génération du PDF...';
 
-    const projectTitle = form.elements.project_title.value.trim() || 'Projet';
-    const element = document.querySelector('.container');
+            const projectTitle = form.elements.project_title.value.trim() || 'Projet';
+            const element = document.body;
+            const exportClass = 'pdf-export';
+            const opt = {
+                margin: [10, 10, 10, 10],
+                filename: `Questionnaire_${projectTitle.replace(/\s+/g, '_')}.pdf`,
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2, useCORS: true, scrollY: 0 },
+                pagebreak: { mode: ['css', 'legacy'] },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
 
-    const opt = {
-        margin: 10,
-        filename: `Questionnaire_${projectTitle.replace(/\s+/g, '_')}.pdf`,
-        image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { scale: 2 },
-        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-    };
+            element.classList.add(exportClass);
+            html2pdf().set(opt).from(element).save().then(() => {
+                submitButton.disabled = false;
+                submitButton.innerText = 'Soumettre le questionnaire';
 
-    html2pdf().set(opt).from(element).save().then(() => {
-        submitButton.disabled = false;
-        submitButton.innerText = "Soumettre le questionnaire";
+                const emailTo = 'ronniking99@gmail.com';
+                const subject = encodeURIComponent(`Questionnaire de projet - ${projectTitle}`);
+                const body = encodeURIComponent(
+                    `Bonjour Waka's Company,\n\nVeuillez trouver ci-joint le questionnaire de projet "${projectTitle}" complété au format PDF.\n\nCordialement.`
+                );
 
-        // Ouverture du client mail (Outlook, Mail, Gmail web, etc.)
-        const emailTo = 'ronniking99@gmail.com';
-        const subject = encodeURIComponent(`Questionnaire de projet - ${projectTitle}`);
-        const body = encodeURIComponent(
-            `Bonjour Waka's Company,\n\nVeuillez trouver ci-joint le questionnaire de projet "${projectTitle}" complété au format PDF.\n\nCordialement.`
-        );
-
-        window.location.href = `mailto:${emailTo}?subject=${subject}&body=${body}`;
-    }).catch((err) => {
-        console.error('Erreur PDF :', err);
-        alert('Erreur lors de la génération du PDF.');
-        submitButton.disabled = false;
-        submitButton.innerText = "Soumettre le questionnaire";
-    });
-});
+                window.location.href = `mailto:${emailTo}?subject=${subject}&body=${body}`;
+            }).catch((err) => {
+                console.error('Erreur PDF :', err);
+                alert('Erreur lors de la génération du PDF.');
+                submitButton.disabled = false;
+                submitButton.innerText = 'Soumettre le questionnaire';
+            }).finally(() => {
+                element.classList.remove(exportClass);
+            });
+        });
     </script>
 </body>
 </html>
