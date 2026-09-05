@@ -448,7 +448,7 @@
                 const emailTo = 'ronniking99@gmail.com';
                 const subject = encodeURIComponent(`Questionnaire de projet - ${projectTitle}`);
                 const body = encodeURIComponent(
-                    `Bonjour Waka's Company,\n\nVeuillez trouver ci-joint le questionnaire de projet "${projectTitle}" complété au format PDF.\n\nCordialement.`
+                    `Bonjour Waka's Company,\n\nVeuillez trouver en pièce jointe le questionnaire de projet "${projectTitle}" complété au format PDF.\n\nLe fichier PDF a été téléchargé automatiquement. Merci de l'ajouter à cet e-mail avant de l'envoyer.\n\nCordialement.`
                 );
 
                 window.location.href = `mailto:${emailTo}?subject=${subject}&body=${body}`;
