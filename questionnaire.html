@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Questionnaire de Projet - Waka's Company</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <style>
         :root {
             --primary-blue: #0056b3;
@@ -375,72 +376,78 @@
 
     <script>
         const form = document.getElementById('questionnaire-form');
-        const downloadButton = document.getElementById('download-button');
-        const blankButton = document.getElementById('blank-button');
-        const submitButton = document.getElementById('submit-button');
+const downloadButton = document.getElementById('download-button');
+const blankButton = document.getElementById('blank-button');
+const submitButton = document.getElementById('submit-button');
 
-        // Impression / Téléchargement PDF
-        function printQuestionnaire(blankDocument) {
-            if (!blankDocument && !form.reportValidity()) return;
+// Fonction d'impression / téléchargement simple
+function printQuestionnaire(blankDocument) {
+    if (!blankDocument && !form.reportValidity()) return;
 
-            const fields = Array.from(form.querySelectorAll('input[name], textarea[name], select[name]'));
-            const savedValues = fields.map((field) => field.value);
-            const savedTitle = document.title;
-            const projectTitle = form.elements.project_title.value.trim();
+    const fields = Array.from(form.querySelectorAll('input[name], textarea[name], select[name]'));
+    const savedValues = fields.map((field) => field.value);
+    const savedTitle = document.title;
+    const projectTitle = form.elements.project_title.value.trim();
 
-            if (blankDocument) {
-                fields.forEach((field) => { field.value = ''; });
-                document.title = 'Questionnaire vierge - Waka Company';
-            } else {
-                document.title = `Questionnaire - ${projectTitle || 'Projet'}`;
-            }
+    if (blankDocument) {
+        fields.forEach((field) => { field.value = ''; });
+        document.title = 'Questionnaire vierge - Waka Company';
+    } else {
+        document.title = `Questionnaire - ${projectTitle || 'Projet'}`;
+    }
 
-            const restoreDocument = () => {
-                fields.forEach((field, index) => { field.value = savedValues[index]; });
-                document.title = savedTitle;
-                window.removeEventListener('afterprint', restoreDocument);
-            };
+    const restoreDocument = () => {
+        fields.forEach((field, index) => { field.value = savedValues[index]; });
+        document.title = savedTitle;
+        window.removeEventListener('afterprint', restoreDocument);
+    };
 
-            window.addEventListener('afterprint', restoreDocument);
-            window.print();
-        }
+    window.addEventListener('afterprint', restoreDocument);
+    window.print();
+}
 
-        downloadButton.addEventListener('click', () => printQuestionnaire(false));
-        blankButton.addEventListener('click', () => printQuestionnaire(true));
+downloadButton.addEventListener('click', () => printQuestionnaire(false));
+blankButton.addEventListener('click', () => printQuestionnaire(true));
 
-        // Envoi au serveur Express
-        form.addEventListener('submit', async (event) => {
-            event.preventDefault();
+// Soumission : Génération PDF + Ouverture du logiciel mail du client
+form.addEventListener('submit', (event) => {
+    event.preventDefault();
 
-            submitButton.disabled = true;
-            submitButton.innerText = "Envoi en cours...";
+    if (!form.reportValidity()) return;
 
-            const formData = new FormData(form);
-            const data = Object.fromEntries(formData.entries());
+    submitButton.disabled = true;
+    submitButton.innerText = "Génération du PDF...";
 
-            try {
-                const response = await fetch('/api/questionnaire', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(data)
-                });
+    const projectTitle = form.elements.project_title.value.trim() || 'Projet';
+    const element = document.querySelector('.container');
 
-                const resultText = await response.text();
+    const opt = {
+        margin: 10,
+        filename: `Questionnaire_${projectTitle.replace(/\s+/g, '_')}.pdf`,
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2 },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+    };
 
-                if (response.ok) {
-                    alert('Succès : Questionnaire transmis avec succès à Waka\'s Company !');
-                    form.reset();
-                } else {
-                    alert('Erreur du serveur : ' + resultText);
-                }
-            } catch (error) {
-                console.error('Erreur lors de la soumission :', error);
-                alert('Erreur réseau ou connexion impossible : ' + error.message);
-            } finally {
-                submitButton.disabled = false;
-                submitButton.innerText = "Soumettre le questionnaire";
-            }
-        });
+    html2pdf().set(opt).from(element).save().then(() => {
+        submitButton.disabled = false;
+        submitButton.innerText = "Soumettre le questionnaire";
+
+        // Ouverture du client mail (Outlook, Mail, Gmail web, etc.)
+        const emailTo = 'ronniking99@gmail.com';
+        const subject = encodeURIComponent(`Questionnaire de projet - ${projectTitle}`);
+        const body = encodeURIComponent(
+            `Bonjour Waka's Company,\n\nVeuillez trouver ci-joint le questionnaire de projet "${projectTitle}" complété au format PDF.\n\nCordialement.`
+        );
+
+        window.location.href = `mailto:${emailTo}?subject=${subject}&body=${body}`;
+    }).catch((err) => {
+        console.error('Erreur PDF :', err);
+        alert('Erreur lors de la génération du PDF.');
+        submitButton.disabled = false;
+        submitButton.innerText = "Soumettre le questionnaire";
+    });
+});
     </script>
 </body>
 </html>
