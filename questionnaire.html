@@ -427,16 +427,7 @@
     </footer>
 
     <script>
-        // ============================================================
-        // CONFIGURATION - À COMPLÉTER
-        // ============================================================
-        // 1. Créez un compte gratuit sur https://formspree.io
-        // 2. Créez un formulaire dont l'adresse de réception est
-        //    ronniking99@gmail.com
-        // 3. Remplacez "VOTRE_ID_FORMSPREE" ci-dessous par l'ID fourni
-        //    par Formspree (visible dans l'URL du formulaire, ex :
-        //    https://formspree.io/f/abcdwxyz -> l'ID est "abcdwxyz")
-        // ============================================================
+       
         const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xeaqrzgk';
 
         // Déclarations globales des éléments HTML
@@ -538,11 +529,8 @@
             return { blob: result, filename };
         }
 
-        // Envoie automatiquement le questionnaire + le PDF en pièce jointe
-        // via Formspree, sans action manuelle de l'utilisateur.
+        // Envoie uniquement les réponses du questionnaire via Formspree.
         async function sendQuestionnaire() {
-            const { blob, filename } = await generatePDF({ isBlank: false, asBlob: true });
-
             const formData = new FormData();
             const formElements = form.elements;
             for (const el of formElements) {
@@ -550,7 +538,6 @@
                     formData.append(el.name, el.value);
                 }
             }
-            formData.append('attachment', blob, filename);
             formData.append('_subject', `Questionnaire de projet - ${form.elements.project_title.value.trim() || 'Projet'}`);
 
             const response = await fetch(FORMSPREE_ENDPOINT, {
@@ -588,7 +575,7 @@
 
             submitButton.disabled = true;
             submitButton.innerText = 'Envoi en cours...';
-            showStatus('Génération du PDF et envoi en cours, merci de patienter...', 'info');
+            showStatus('Envoi de vos réponses en cours, merci de patienter...', 'info');
 
             try {
                 await sendQuestionnaire();
