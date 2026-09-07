@@ -427,9 +427,19 @@
     </footer>
 
     <script>
-        
+        // ============================================================
+        // CONFIGURATION - À COMPLÉTER
+        // ============================================================
+        // 1. Créez un compte gratuit sur https://formspree.io
+        // 2. Créez un formulaire dont l'adresse de réception est
+        //    ronniking99@gmail.com
+        // 3. Remplacez "VOTRE_ID_FORMSPREE" ci-dessous par l'ID fourni
+        //    par Formspree (visible dans l'URL du formulaire, ex :
+        //    https://formspree.io/f/abcdwxyz -> l'ID est "abcdwxyz")
+        // ============================================================
         const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xeaqrzgk';
 
+        // Déclarations globales des éléments HTML
         const form = document.getElementById('questionnaire-form');
         const downloadButton = document.getElementById('download-button');
         const blankButton = document.getElementById('blank-button');
@@ -439,6 +449,11 @@
         function showStatus(text, type) {
             statusMessage.textContent = text;
             statusMessage.className = `status-message ${type}`;
+            statusMessage.style.display = 'block';
+        }
+
+        function hideStatus() {
+            statusMessage.style.display = 'none';
         }
 
         // Génère le PDF. Par défaut le déclenche en téléchargement direct.
@@ -452,7 +467,7 @@
             // Masquer la zone de boutons et le message de statut pendant l'exportation
             const actionsDiv = document.querySelector('.actions');
             actionsDiv.style.display = 'none';
-            statusMessage.style.display = 'none';
+            hideStatus();
 
             // Injection dynamique de l'en-tête pour la page 1 du PDF
             const pdfHeader = document.createElement('div');
