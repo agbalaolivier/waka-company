@@ -119,6 +119,9 @@
         textarea {
             resize: vertical;
             min-height: 120px;
+            white-space: pre-wrap;
+            overflow-wrap: anywhere;
+            word-break: break-word;
         }
 
         input:focus, textarea:focus, select:focus {
@@ -154,6 +157,11 @@
             background-color: #004085;
         }
 
+        .btn-submit:disabled {
+            background-color: #8fb4d9;
+            cursor: not-allowed;
+        }
+
         .actions {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -180,6 +188,36 @@
             background-color: #eef5ff;
         }
 
+        .status-message {
+            margin-top: 1rem;
+            padding: 0.85rem 1rem;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            display: none;
+        }
+
+        .status-message.info {
+            display: block;
+            background-color: #eef5ff;
+            color: var(--primary-blue);
+            border: 1px solid #bcd9ff;
+        }
+
+        .status-message.success {
+            display: block;
+            background-color: #e6f7ec;
+            color: #1e7e34;
+            border: 1px solid #b3e6c2;
+        }
+
+        .status-message.error {
+            display: block;
+            background-color: #fdecea;
+            color: #b02a37;
+            border: 1px solid #f5c2c7;
+        }
+
         @media (max-width: 600px) {
             header {
                 padding: 1rem;
@@ -202,30 +240,6 @@
             }
         }
 
-        @media print {
-            body {
-                background: #ffffff;
-            }
-
-            footer, .actions {
-                display: none;
-            }
-
-            header {
-                display: flex;
-                margin-bottom: 1.5rem;
-                padding: 1rem 0;
-                box-shadow: none;
-            }
-
-            .container {
-                max-width: none;
-                margin: 0;
-                padding: 0;
-                box-shadow: none;
-            }
-        }
-
         footer {
             text-align: center;
             padding: 1.5rem;
@@ -239,12 +253,32 @@
             text-decoration: none;
         }
 
-        .pdf-export .actions {
-            display: none;
+        /* En-tête injecté uniquement pour le rendu PDF */
+        .pdf-only-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--primary-blue);
+            padding-bottom: 1rem;
+            margin-bottom: 1.5rem;
         }
 
-        .pdf-export footer {
-            display: none;
+        .pdf-only-header .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .pdf-only-header .site-name {
+            color: var(--primary-blue);
+            font-size: 1.35rem;
+            font-weight: 800;
+        }
+
+        .pdf-only-header .site-link {
+            color: var(--primary-blue);
+            font-weight: 600;
+            font-size: 0.95rem;
         }
     </style>
 </head>
@@ -264,7 +298,6 @@
         <h1>Questionnaire de Projet</h1>
         <p class="intro">Vos réponses nous aideront à définir précisément votre site, son contenu et ses fonctionnalités.</p>
 
-        <!-- Formulaire nettoyé : redirection directe vers l'API Express -->
         <form id="questionnaire-form">
 
             <div class="section-title">1. Présentation &amp; Objectifs</div>
@@ -272,6 +305,11 @@
             <div class="form-group">
                 <label for="project-title">Nom du projet ou de l'entreprise *</label>
                 <input type="text" id="project-title" name="project_title" placeholder="Ex : Waka's Company" required>
+            </div>
+
+            <div class="form-group">
+                <label for="contact-email">Votre adresse e-mail (pour vous répondre) *</label>
+                <input type="email" id="contact-email" name="contact_email" placeholder="vous@exemple.com" required>
             </div>
 
             <div class="form-group">
@@ -379,6 +417,8 @@
                 <button type="submit" id="submit-button" class="btn-submit">Soumettre le questionnaire</button>
                 <button type="button" id="blank-button" class="btn-secondary blank-download">Télécharger le document vierge en PDF</button>
             </div>
+
+            <div id="status-message" class="status-message"></div>
         </form>
     </div>
 
@@ -387,79 +427,165 @@
     </footer>
 
     <script>
+        
+        const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xeaqrzgk';
+
         const form = document.getElementById('questionnaire-form');
         const downloadButton = document.getElementById('download-button');
         const blankButton = document.getElementById('blank-button');
         const submitButton = document.getElementById('submit-button');
+        const statusMessage = document.getElementById('status-message');
 
-        function printQuestionnaire(blankDocument) {
-            if (!blankDocument && !form.reportValidity()) return;
-
-            const fields = Array.from(form.querySelectorAll('input[name], textarea[name], select[name]'));
-            const savedValues = fields.map((field) => field.value);
-            const savedTitle = document.title;
-            const projectTitle = form.elements.project_title.value.trim();
-
-            if (blankDocument) {
-                fields.forEach((field) => { field.value = ''; });
-                document.title = 'Questionnaire vierge - Waka Company';
-            } else {
-                document.title = `Questionnaire - ${projectTitle || 'Projet'}`;
-            }
-
-            const restoreDocument = () => {
-                fields.forEach((field, index) => { field.value = savedValues[index]; });
-                document.title = savedTitle;
-                window.removeEventListener('afterprint', restoreDocument);
-            };
-
-            window.addEventListener('afterprint', restoreDocument);
-            window.print();
+        function showStatus(text, type) {
+            statusMessage.textContent = text;
+            statusMessage.className = `status-message ${type}`;
         }
 
-        downloadButton.addEventListener('click', () => printQuestionnaire(false));
-        blankButton.addEventListener('click', () => printQuestionnaire(true));
+        // Génère le PDF. Par défaut le déclenche en téléchargement direct.
+        // Si asBlob=true, retourne un Blob (utilisé pour l'envoi automatique).
+        async function generatePDF({ isBlank = false, asBlob = false } = {}) {
+            const container = document.querySelector('.container');
+            const projectTitleInput = form.elements.project_title.value.trim();
+            const projectTitle = isBlank ? 'Vierge' : (projectTitleInput || 'Projet');
+            const filename = `Questionnaire_${projectTitle.replace(/\s+/g, '_')}.pdf`;
 
-        form.addEventListener('submit', (event) => {
-            event.preventDefault();
+            // Masquer la zone de boutons et le message de statut pendant l'exportation
+            const actionsDiv = document.querySelector('.actions');
+            actionsDiv.style.display = 'none';
+            statusMessage.style.display = 'none';
 
-            if (!form.reportValidity()) return;
+            // Injection dynamique de l'en-tête pour la page 1 du PDF
+            const pdfHeader = document.createElement('div');
+            pdfHeader.className = 'pdf-only-header';
+            pdfHeader.innerHTML = `
+                <div class="logo-container">
+                    <img class="logo-image" src="assets/images/logo.png" alt="Waka's Company" style="width: 140px;">
+                    <span class="site-name">Waka's Company</span>
+                </div>
+                <div class="site-link">
+                    waka-company.onrender.com
+                </div>
+            `;
+            container.prepend(pdfHeader);
 
-            submitButton.disabled = true;
-            submitButton.innerText = 'Génération du PDF...';
+            // Remplacement temporaire des textarea par des div pour éviter la perte de texte
+            const textareas = container.querySelectorAll('textarea');
+            const replacements = [];
 
-            const projectTitle = form.elements.project_title.value.trim() || 'Projet';
-            const element = document.body;
-            const exportClass = 'pdf-export';
+            textareas.forEach((ta) => {
+                const div = document.createElement('div');
+                div.className = 'pdf-textarea-replacement';
+                div.style.whiteSpace = 'pre-wrap';
+                div.style.border = '1px solid #ced4da';
+                div.style.padding = '0.75rem';
+                div.style.borderRadius = '4px';
+                div.style.minHeight = '60px';
+                div.textContent = isBlank ? '' : ta.value;
+
+                ta.style.display = 'none';
+                ta.parentNode.insertBefore(div, ta.nextSibling);
+                replacements.push({ ta, div });
+            });
+
+            // Sauvegarde de la valeur du titre pour le cas vierge
+            const originalTitleVal = form.elements.project_title.value;
+            if (isBlank) form.elements.project_title.value = '';
+
             const opt = {
                 margin: [10, 10, 10, 10],
-                filename: `Questionnaire_${projectTitle.replace(/\s+/g, '_')}.pdf`,
+                filename,
                 image: { type: 'jpeg', quality: 0.98 },
                 html2canvas: { scale: 2, useCORS: true, scrollY: 0 },
                 pagebreak: { mode: ['css', 'legacy'] },
                 jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
             };
 
-            element.classList.add(exportClass);
-            html2pdf().set(opt).from(element).save().then(() => {
-                submitButton.disabled = false;
-                submitButton.innerText = 'Soumettre le questionnaire';
+            let result;
+            try {
+                const worker = html2pdf().set(opt).from(container);
+                if (asBlob) {
+                    result = await worker.outputPdf('blob');
+                } else {
+                    await worker.save();
+                }
+            } finally {
+                // Restauration de l'état initial du DOM
+                pdfHeader.remove();
+                actionsDiv.style.display = 'grid';
+                if (isBlank) form.elements.project_title.value = originalTitleVal;
 
-                const emailTo = 'ronniking99@gmail.com';
-                const subject = encodeURIComponent(`Questionnaire de projet - ${projectTitle}`);
-                const body = encodeURIComponent(
-                    `Bonjour Waka's Company,\n\nVeuillez trouver en pièce jointe le questionnaire de projet "${projectTitle}" complété au format PDF.\n\nLe fichier PDF a été téléchargé automatiquement. Merci de l'ajouter à cet e-mail avant de l'envoyer.\n\nCordialement.`
-                );
+                replacements.forEach(({ ta, div }) => {
+                    ta.style.display = '';
+                    div.remove();
+                });
+            }
 
-                window.location.href = `mailto:${emailTo}?subject=${subject}&body=${body}`;
-            }).catch((err) => {
-                console.error('Erreur PDF :', err);
-                alert('Erreur lors de la génération du PDF.');
-                submitButton.disabled = false;
-                submitButton.innerText = 'Soumettre le questionnaire';
-            }).finally(() => {
-                element.classList.remove(exportClass);
+            return { blob: result, filename };
+        }
+
+        // Envoie automatiquement le questionnaire + le PDF en pièce jointe
+        // via Formspree, sans action manuelle de l'utilisateur.
+        async function sendQuestionnaire() {
+            const { blob, filename } = await generatePDF({ isBlank: false, asBlob: true });
+
+            const formData = new FormData();
+            const formElements = form.elements;
+            for (const el of formElements) {
+                if (el.name) {
+                    formData.append(el.name, el.value);
+                }
+            }
+            formData.append('attachment', blob, filename);
+            formData.append('_subject', `Questionnaire de projet - ${form.elements.project_title.value.trim() || 'Projet'}`);
+
+            const response = await fetch(FORMSPREE_ENDPOINT, {
+                method: 'POST',
+                body: formData,
+                headers: { Accept: 'application/json' }
             });
+
+            if (!response.ok) {
+                const data = await response.json().catch(() => null);
+                const msg = data && data.errors ? data.errors.map(e => e.message).join(', ') : `Erreur ${response.status}`;
+                throw new Error(msg);
+            }
+        }
+
+        // Événement : Télécharger mes réponses en PDF
+        downloadButton.addEventListener('click', () => {
+            generatePDF({ isBlank: false, asBlob: false });
+        });
+
+        // Événement : Télécharger le document vierge
+        blankButton.addEventListener('click', () => {
+            generatePDF({ isBlank: true, asBlob: false });
+        });
+
+        // Événement : Soumettre le questionnaire (envoi automatique par e-mail)
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            if (!form.reportValidity()) return;
+
+            if (FORMSPREE_ENDPOINT.includes('VOTRE_ID_FORMSPREE')) {
+                showStatus("Configuration manquante : l'ID Formspree n'a pas été renseigné dans le code (voir la section CONFIGURATION en haut du script).", 'error');
+                return;
+            }
+
+            submitButton.disabled = true;
+            submitButton.innerText = 'Envoi en cours...';
+            showStatus('Génération du PDF et envoi en cours, merci de patienter...', 'info');
+
+            try {
+                await sendQuestionnaire();
+                showStatus('Votre questionnaire a bien été envoyé à Waka\'s Company. Merci !', 'success');
+                form.reset();
+            } catch (err) {
+                console.error('Erreur envoi :', err);
+                showStatus(`L'envoi a échoué (${err.message}). Vous pouvez réessayer ou télécharger le PDF et l'envoyer manuellement.`, 'error');
+            } finally {
+                submitButton.disabled = false;
+                submitButton.innerText = 'Soumettre le questionnaire';
+            }
         });
     </script>
 </body>
